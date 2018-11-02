@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DynamoServer.Extensions</RootNamespace>
     <AssemblyName>DynamoServerExtensions</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -137,13 +138,14 @@
     <Compile Include="ServerExtension.cs" />
     <Compile Include="ServerViewExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Server\DynamoServer\DynamoServer.csproj">
-      <Project>{d03ec36d-4acc-45a4-ac54-0ebfe7ccf10f}</Project>
+    <ProjectReference Include="..\Server\DynamoServer.csproj">
+      <Project>{bc5f7ef7-7ed9-4016-b68f-faf21d8ebbba}</Project>
       <Name>DynamoServer</Name>
     </ProjectReference>
   </ItemGroup>
@@ -160,6 +162,8 @@ xcopy /y /q "C:\Users\Radu\Documents\GitHub\DynamoServer\Extensions\Resources\Dy
 
 xcopy /y /q "C:\Users\Radu\Documents\GitHub\DynamoServer\Extensions\bin\Debug\DynamoServerExtensions.dll" "C:\Program Files\Dynamo\Dynamo Core\2\extensions\"
 xcopy /y /q "C:\Users\Radu\Documents\GitHub\DynamoServer\Extensions\bin\Debug\DynamoServerExtensions.dll" "C:\Program Files\Dynamo\Dynamo Core\2\viewExtensions\"
+
+xcopy /y /q "C:\Users\Radu\Documents\GitHub\DynamoServer\Extensions\bin\Debug\DynamoServer.dll" "C:\Program Files\Dynamo\Dynamo Core\2\viewExtensions\"
 </PostBuildEvent>
   </PropertyGroup>
 </Project>
