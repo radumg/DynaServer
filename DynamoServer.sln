@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamoServer", "DynamoServer\DynamoServer.csproj", "{D03EC36D-4ACC-45A4-AC54-0EBFE7CCF10F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamoServer", "Server\DynamoServer.csproj", "{D03EC36D-4ACC-45A4-AC54-0EBFE7CCF10F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{345633B6-D2EA-4A9D-9850-C5FC8BB0D861}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamoServer.Extensions", "Extensions\DynamoServer.Extensions.csproj", "{528A5658-2861-4727-BDC8-C3CDB60C3601}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{D03EC36D-4ACC-45A4-AC54-0EBFE7CCF10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D03EC36D-4ACC-45A4-AC54-0EBFE7CCF10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D03EC36D-4ACC-45A4-AC54-0EBFE7CCF10F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{345633B6-D2EA-4A9D-9850-C5FC8BB0D861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{345633B6-D2EA-4A9D-9850-C5FC8BB0D861}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{345633B6-D2EA-4A9D-9850-C5FC8BB0D861}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{345633B6-D2EA-4A9D-9850-C5FC8BB0D861}.Release|Any CPU.Build.0 = Release|Any CPU
+		{528A5658-2861-4727-BDC8-C3CDB60C3601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{528A5658-2861-4727-BDC8-C3CDB60C3601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{528A5658-2861-4727-BDC8-C3CDB60C3601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{528A5658-2861-4727-BDC8-C3CDB60C3601}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
