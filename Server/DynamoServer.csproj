@@ -128,7 +128,6 @@
     <Compile Include="Server\DynamoWebServer.cs" />
     <Compile Include="Modules\JsonModule.cs" />
     <Compile Include="Modules\AboutModule.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modules\TestModule.cs" />
     <Compile Include="Server\ServiceRunner.cs" />
