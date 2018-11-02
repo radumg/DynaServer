@@ -15,9 +15,10 @@ namespace DynamoServer
         public static void Main(string[] args)
         {
             Console.WriteLine("Starting web service on " + DynamoWebServer.URL_BASE);
-            Task.Run(async () => { ServiceRunner.Run(); }).Wait();
+            Task.Run(async () => { ServiceRunner.Run(); });
 
             Console.WriteLine("DynamoServer terminated at " + DateTime.UtcNow);
+            Console.ReadKey();
         }
     }
 }
