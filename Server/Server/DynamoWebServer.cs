@@ -25,11 +25,13 @@ namespace DynamoServer
 
         public void Start()
         {
+            Console.WriteLine("Starting web service on " + URL_BASE);
             server.Start();
         }
 
         public void Stop()
         {
+            Console.WriteLine("Stopping web service on " + URL_BASE);
             server.Stop();
             server.Dispose();
         }

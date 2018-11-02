@@ -2,24 +2,25 @@
 using Dynamo.Graph.Nodes;
 using Dynamo.Wpf.Extensions;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace DynamoServer.Extensions
 {
     public static class Events
     {
-        public static void RegisterEventHandlers(ServerViewExtension ext)
+        public static void RegisterEventHandlers(ServerViewExtension extension)
         {
-            ext.viewLoadedParams.CurrentWorkspaceChanged += OnCurrentWorkspaceChanged;
-            ext.viewLoadedParams.CurrentWorkspaceModel.NodeAdded += OnNodeAdded;
-            ext.viewLoadedParams.CurrentWorkspaceModel.NodeRemoved += OnNodeRemoved;
+            extension.viewLoadedParams.CurrentWorkspaceChanged += OnCurrentWorkspaceChanged;
+            extension.viewLoadedParams.CurrentWorkspaceModel.NodeAdded += OnNodeAdded;
+            extension.viewLoadedParams.CurrentWorkspaceModel.NodeRemoved += OnNodeRemoved;
         }
 
-        public static void UnregisterEventHandlers(ServerViewExtension ext)
+        public static void UnregisterEventHandlers(ServerViewExtension extension)
         {
-            ext.viewLoadedParams.CurrentWorkspaceChanged -= OnCurrentWorkspaceChanged;
-            ext.viewLoadedParams.CurrentWorkspaceModel.NodeAdded -= OnNodeAdded;
-            ext.viewLoadedParams.CurrentWorkspaceModel.NodeRemoved -= OnNodeRemoved;
+            extension.viewLoadedParams.CurrentWorkspaceChanged -= OnCurrentWorkspaceChanged;
+            extension.viewLoadedParams.CurrentWorkspaceModel.NodeAdded -= OnNodeAdded;
+            extension.viewLoadedParams.CurrentWorkspaceModel.NodeRemoved -= OnNodeRemoved;
         }
 
         private static void OnCurrentWorkspaceChanged(Dynamo.Graph.Workspaces.IWorkspaceModel obj)
@@ -37,9 +38,15 @@ namespace DynamoServer.Extensions
             MessageBox.Show($"You just removed the {node.Name} node with Id {node.GUID} from the canvas.");
         }
 
-        public static void OnServerStart(object sender, RoutedEventArgs e)
+        public static async void OnServerStartAsync(object sender, RoutedEventArgs e)
         {
             MessageBox.Show($"[ {DateTime.Now} ] : Starting server on machine {Environment.MachineName}");
+
+            Func<Task> function = async () => { DynamoServer.ServiceRunner.Run(); };
+            await Task.Run(function);
+
+            MessageBox.Show($"[ {DateTime.Now} ] : Server has finished starting.");
+
         }
 
         public static void OnServerStop(object sender, RoutedEventArgs e)
