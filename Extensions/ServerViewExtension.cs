@@ -3,9 +3,12 @@ using Dynamo.ViewModels;
 using Dynamo.Wpf.Extensions;
 using DynamoServer.Server;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace DynamoServer.Extensions
 {
@@ -13,11 +16,14 @@ namespace DynamoServer.Extensions
     {
         public string UniqueId => "5E85F38F-0A19-4F24-9E18-96845764780C";
         public string Name => "Dynamo Server View Extension";
+        public string DynamoVersion => dynamoViewModel.Version;
+        public string DynamoHostVersion => dynamoViewModel.HostVersion;
 
-        internal ViewLoadedParams viewLoadedParams;
-        internal DynamoViewModel dynamoViewModel => viewLoadedParams.DynamoWindow.DataContext as DynamoViewModel;
-        internal static DynamoLogger DynamoLogger;
+        internal static ViewLoadedParams viewLoadedParams = null;
+        internal static DynamoViewModel dynamoViewModel => viewLoadedParams.DynamoWindow.DataContext as DynamoViewModel;
+        internal static DynamoLogger DynamoLogger => dynamoViewModel.Model.Logger;
         internal static DynamoWebServer Server = null;
+        internal static Dispatcher dispatcher;
 
         public ServerViewExtension()
         {
@@ -31,13 +37,15 @@ namespace DynamoServer.Extensions
             MessageBox.Show($"[ {DateTime.Now} ] : {this.Name} is ready!");
 
             // hold a reference to the Dynamo params to be used later
-            viewLoadedParams = vlp;
-            DynamoLogger = dynamoViewModel.Model.Logger;
+            if (viewLoadedParams == null) viewLoadedParams = vlp;
 
-            Events.RegisterEventHandlers(this);
+            Events.RegisterEventHandlers();
 
             // add Dynamo Server menu to Dynamo UI
             viewLoadedParams.dynamoMenu.Items.Add(DynamoServer.Extensions.UI.ServerMenu);
+
+            // hold reference to thread so we can call methods from web server thread
+            dispatcher = Dispatcher.CurrentDispatcher;
         }
 
         public static async Task StartServerAsync()
@@ -52,7 +60,7 @@ namespace DynamoServer.Extensions
 
             // log results
             var confirmation = Server.IsRunning == true ? "Started ok" : "Something went wrong, server did not start ok.";
-            confirmation = $"[ {DateTime.Now} ] : " + confirmation + ", in " + watch.ElapsedMilliseconds +"ms";
+            confirmation = $"[ {DateTime.Now} ] : " + confirmation + ", in " + watch.ElapsedMilliseconds + "ms";
             ServerViewExtension.DynamoLogger.LogNotification("ServerViewExtension", "Dynamo Server START", message, confirmation);
         }
 
@@ -81,7 +89,7 @@ namespace DynamoServer.Extensions
         public async void Shutdown()
         {
             await ServerViewExtension.StopServerAsync();
-            Events.UnregisterEventHandlers(this);
+            Events.UnregisterEventHandlers();
         }
 
         public void Dispose() { }
