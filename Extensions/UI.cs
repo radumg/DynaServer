@@ -19,10 +19,16 @@ namespace DynamoServer.Extensions
             // and now we add a new sub-menu item that says hello when clicked
             var startServerMenuItem = new MenuItem { Header = "Start Server" };
             var stopServerMenuItem = new MenuItem { Header = "Stop Server" };
+            var checkServerStatusMenuItem = new MenuItem { Header = "Check server status" };
+
+            // register event handlers
             startServerMenuItem.Click += Events.OnServerStartAsync;
             stopServerMenuItem.Click += Events.OnServerStop;
+            checkServerStatusMenuItem.Click += Events.OnCheckServerStatus;
+
             serverMenu.Items.Add(startServerMenuItem);
             serverMenu.Items.Add(stopServerMenuItem);
+            serverMenu.Items.Add(checkServerStatusMenuItem);
 
             // finally, we need to add our menu to Dynamo
             extension.viewLoadedParams.dynamoMenu.Items.Add(serverMenu);
