@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace DynamoServer.Server
 {
-    public class DynamoWebServer
+    public class DynamoWebServer : IDisposable
     {
         private const string DEFAULT_URL_BASE = "http://localhost:1234";
 
@@ -57,10 +57,13 @@ namespace DynamoServer.Server
             Console.WriteLine("Stopping web service on " + UrlBase);
 
             server.Stop();
-            server.Dispose();
             IsRunning = false;
         }
 
+        public void Dispose()
+        {
+            server.Dispose();
+        }
     }
 
 }
