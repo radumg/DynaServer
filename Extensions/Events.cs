@@ -6,18 +6,18 @@ namespace DynamoServer.Extensions
 {
     public static class Events
     {
-        public static void RegisterEventHandlers(ServerViewExtension extension)
+        public static void RegisterEventHandlers()
         {
-            extension.viewLoadedParams.CurrentWorkspaceChanged += OnCurrentWorkspaceChanged;
-            extension.viewLoadedParams.CurrentWorkspaceModel.NodeAdded += OnNodeAdded;
-            extension.viewLoadedParams.CurrentWorkspaceModel.NodeRemoved += OnNodeRemoved;
+            ServerViewExtension.viewLoadedParams.CurrentWorkspaceChanged += OnCurrentWorkspaceChanged;
+            ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.NodeAdded += OnNodeAdded;
+            ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.NodeRemoved += OnNodeRemoved;
         }
 
-        public static void UnregisterEventHandlers(ServerViewExtension extension)
+        public static void UnregisterEventHandlers()
         {
-            extension.viewLoadedParams.CurrentWorkspaceChanged -= OnCurrentWorkspaceChanged;
-            extension.viewLoadedParams.CurrentWorkspaceModel.NodeAdded -= OnNodeAdded;
-            extension.viewLoadedParams.CurrentWorkspaceModel.NodeRemoved -= OnNodeRemoved;
+            ServerViewExtension.viewLoadedParams.CurrentWorkspaceChanged -= OnCurrentWorkspaceChanged;
+            ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.NodeAdded -= OnNodeAdded;
+            ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.NodeRemoved -= OnNodeRemoved;
         }
 
         private static void OnCurrentWorkspaceChanged(Dynamo.Graph.Workspaces.IWorkspaceModel obj)
