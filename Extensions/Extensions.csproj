@@ -144,9 +144,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Server\DynamoServer.csproj">
-      <Project>{bc5f7ef7-7ed9-4016-b68f-faf21d8ebbba}</Project>
-      <Name>DynamoServer</Name>
+    <ProjectReference Include="..\Server\Server.csproj">
+      <Project>{36fb1c1c-9864-4ef5-9f69-18c128011dd5}</Project>
+      <Name>Server</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

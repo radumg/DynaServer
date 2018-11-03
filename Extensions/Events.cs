@@ -1,8 +1,5 @@
-﻿using Dynamo.Extensions;
-using Dynamo.Graph.Nodes;
-using Dynamo.Wpf.Extensions;
+﻿using Dynamo.Graph.Nodes;
 using System;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace DynamoServer.Extensions
@@ -40,18 +37,17 @@ namespace DynamoServer.Extensions
 
         public static async void OnServerStartAsync(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"[ {DateTime.Now} ] : Starting server on machine {Environment.MachineName}");
-
-            Func<Task> function = async () => { DynamoServer.ServiceRunner.Run(); };
-            await Task.Run(function);
-
-            MessageBox.Show($"[ {DateTime.Now} ] : Server has finished starting.");
-
+            await ServerViewExtension.StartServerAsync();
         }
 
-        public static void OnServerStop(object sender, RoutedEventArgs e)
+        public static async void OnServerStop(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"[ {DateTime.Now} ] : Stopping server on machine {Environment.MachineName}");
+            await ServerViewExtension.StopServerAsync();
+        }
+
+        public static void OnCheckServerStatus(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(ServerViewExtension.GetServerStatus());
         }
     }
 }
