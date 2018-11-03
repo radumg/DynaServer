@@ -48,9 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modules\AboutModule.cs" />
-    <Compile Include="Modules\JsonModule.cs" />
-    <Compile Include="Modules\TestModule.cs" />
+    <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Bootstrapper.cs" />
     <Compile Include="Server\CustomRootPathProvider.cs" />
@@ -62,5 +60,6 @@
   <ItemGroup>
     <Content Include="Views\index.html" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
