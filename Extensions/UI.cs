@@ -9,30 +9,29 @@ namespace DynamoServer.Extensions
 {
     public static class UI
     {
-        internal static MenuItem serverMenu;
+        internal static MenuItem ServerMenu;
+        internal static MenuItem StartServerMenuItem;
+        internal static MenuItem StopServerMenuItem;
+        internal static MenuItem CheckServerStatusMenuItem;
 
-        public static void MakeMenuItems(ServerViewExtension extension)
+        static UI()
         {
             // let's now create a completely top-level new menu item
-            serverMenu = new MenuItem { Header = "Dynamo Server" };
+            ServerMenu = new MenuItem { Header = "Dynamo Server" };
 
             // and now we add a new sub-menu item that says hello when clicked
-            var startServerMenuItem = new MenuItem { Header = "Start Server" };
-            var stopServerMenuItem = new MenuItem { Header = "Stop Server" };
-            var checkServerStatusMenuItem = new MenuItem { Header = "Check server status" };
+            StartServerMenuItem = new MenuItem { Header = "Start Server" };
+            StopServerMenuItem = new MenuItem { Header = "Stop Server" };
+            CheckServerStatusMenuItem = new MenuItem { Header = "Check server status" };
 
             // register event handlers
-            startServerMenuItem.Click += Events.OnServerStartAsync;
-            stopServerMenuItem.Click += Events.OnServerStop;
-            checkServerStatusMenuItem.Click += Events.OnCheckServerStatus;
+            StartServerMenuItem.Click += Events.OnServerStartAsync;
+            StopServerMenuItem.Click += Events.OnServerStop;
+            CheckServerStatusMenuItem.Click += Events.OnCheckServerStatus;
 
-            serverMenu.Items.Add(startServerMenuItem);
-            serverMenu.Items.Add(stopServerMenuItem);
-            serverMenu.Items.Add(checkServerStatusMenuItem);
-
-            // finally, we need to add our menu to Dynamo
-            extension.viewLoadedParams.dynamoMenu.Items.Add(serverMenu);
+            ServerMenu.Items.Add(StartServerMenuItem);
+            ServerMenu.Items.Add(StopServerMenuItem);
+            ServerMenu.Items.Add(CheckServerStatusMenuItem);
         }
-
     }
 }

@@ -22,17 +22,17 @@ namespace DynamoServer.Extensions
 
         private static void OnCurrentWorkspaceChanged(Dynamo.Graph.Workspaces.IWorkspaceModel obj)
         {
-            MessageBox.Show($"Congratulations on opening the {obj.Name} workspace!");
+            // do something here
         }
 
         private static void OnNodeAdded(NodeModel node)
         {
-            MessageBox.Show($"You just added the {node.Name} node with Id {node.GUID} to the canvas.");
+            // do something here
         }
 
         private static void OnNodeRemoved(NodeModel node)
         {
-            MessageBox.Show($"You just removed the {node.Name} node with Id {node.GUID} from the canvas.");
+            // do something here
         }
 
         public static async void OnServerStartAsync(object sender, RoutedEventArgs e)

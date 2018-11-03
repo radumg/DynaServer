@@ -3,6 +3,7 @@ using Dynamo.ViewModels;
 using Dynamo.Wpf.Extensions;
 using DynamoServer.Server;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -35,19 +36,23 @@ namespace DynamoServer.Extensions
 
             Events.RegisterEventHandlers(this);
 
-            // we can now add custom menu items to Dynamo's UI
-            UI.MakeMenuItems(this);
+            // add Dynamo Server menu to Dynamo UI
+            viewLoadedParams.dynamoMenu.Items.Add(DynamoServer.Extensions.UI.ServerMenu);
         }
 
         public static async Task StartServerAsync()
         {
+            var watch = new Stopwatch();
+            watch.Start();
             var message = $"[ {DateTime.Now} ] : Starting server on machine {Environment.MachineName}";
 
             // start server and continue execution
             await Task.Run(() => Server.Start());
+            watch.Stop();
 
+            // log results
             var confirmation = Server.IsRunning == true ? "Started ok" : "Something went wrong, server did not start ok.";
-            confirmation = $"[ {DateTime.Now} ] : " + confirmation;
+            confirmation = $"[ {DateTime.Now} ] : " + confirmation + ", in " + watch.ElapsedMilliseconds +"ms";
             ServerViewExtension.DynamoLogger.LogNotification("ServerViewExtension", "Dynamo Server START", message, confirmation);
         }
 
@@ -58,19 +63,24 @@ namespace DynamoServer.Extensions
             // stop server and continue execution
             await Task.Run(() => Server.Stop());
 
+            // log results
             var confirmation = Server.IsRunning == false ? "Stopped ok" : "Something went wrong, server is still running.";
             confirmation = $"[ {DateTime.Now} ] : " + confirmation;
-            ServerViewExtension.DynamoLogger.LogNotification("ServerViewExtension", "Dynamo Server STOP", message, confirmation);
+            ServerViewExtension.DynamoLogger.LogNotification("ServerViewExtension", "Dynamo Server STOP", message, null);
         }
 
         public static string GetServerStatus()
         {
-            return "Server is running : " + Server.IsRunning;
+            var running = Server.IsRunning ? $"RUNNING on machine {Environment.MachineName}" : "NOT RUNNING";
+            var message = $"[ {DateTime.Now} ] : Server is {running}";
+            ServerViewExtension.DynamoLogger.Log(message);
+
+            return message;
         }
 
-        public void Shutdown()
+        public async void Shutdown()
         {
-            ServerViewExtension.StopServerAsync();
+            await ServerViewExtension.StopServerAsync();
             Events.UnregisterEventHandlers(this);
         }
 
