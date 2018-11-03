@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Nancy;
 
-namespace DynamoServer
+namespace DynamoServer.Server
 {
     /// <summary>
     /// This module only handles requests that target the /about endpoints.
@@ -23,9 +23,9 @@ namespace DynamoServer
                         Assembly.GetExecutingAssembly().GetName().Version;
             };
 
-            Get["/Dynamo"] = x =>
+            Get["/clr"] = x =>
             {
-                return "Running in Dynamo " + Dynamo.Utilities.AssemblyHelper.GetDynamoVersion();
+                return Assembly.GetExecutingAssembly().ImageRuntimeVersion;
             };
         }
     }

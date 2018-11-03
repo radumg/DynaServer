@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Nancy;
+﻿using Nancy;
+using System;
+using System.Windows;
 
-namespace DynamoServer
+namespace DynamoServer.Server
 {
     /// <summary>
     /// This module only handles requests that target the /test endpoints.
@@ -14,15 +11,25 @@ namespace DynamoServer
     {
         public TestModule() : base("/test")
         {
-            Get["/"] = x => { return "Hello, it is now " + DateTime.Now.ToLongTimeString(); };
+            Get["/index"] = x =>
+            {
+                //MessageBox.Show("just got a request");
+                return Response.AsFile("Views/index.html", "text/html");
+            };
+
+            Get["/view"] = _ =>  View["index.html"];
+
+            Get["/time"] = x => { return "Hello, it is now " + DateTime.Now.ToLongTimeString(); };
 
             // would capture routes like /hello/Dynamo sent as a GET request
-            Get["/hello/{name}"] = parameters => {
+            Get["/hello/{name}"] = parameters =>
+            {
                 return "Hello " + parameters.name;
             };
 
             // would capture routes like /users/192/add/moderator sent as a POST request
-            Post["/users/{id}/add/{category}"] = parameters => {
+            Post["/users/{id}/add/{category}"] = parameters =>
+            {
                 return HttpStatusCode.OK;
             };
 
