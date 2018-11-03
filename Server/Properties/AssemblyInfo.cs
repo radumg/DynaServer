@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TestApp")]
+[assembly: AssemblyTitle("DynamoServer web server")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TestApp")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("Server")]
+[assembly: AssemblyCopyright("Copyright © Radu Gidei 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("345633b6-d2ea-4a9d-9850-c5fc8bb0d861")]
+[assembly: Guid("36fb1c1c-9864-4ef5-9f69-18c128011dd5")]
 
 // Version information for an assembly consists of the following four values:
 //

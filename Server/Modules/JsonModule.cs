@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Nancy;
 
-namespace DynamoServer
+namespace DynamoServer.Server
 {
     /// <summary>
     /// This module only handles requests that target the /json endpoints.
