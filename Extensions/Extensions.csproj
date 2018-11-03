@@ -169,7 +169,6 @@ xcopy /y /q "C:\Users\Radu\Documents\GitHub\DynamoServer\Extensions\Resources\Dy
 xcopy /y /q "C:\Users\Radu\Documents\GitHub\DynamoServer\Extensions\bin\Debug\DynamoServerExtensions.dll" "C:\Program Files\Dynamo\Dynamo Core\2\extensions\"
 xcopy /y /q "C:\Users\Radu\Documents\GitHub\DynamoServer\Extensions\bin\Debug\DynamoServerExtensions.dll" "C:\Program Files\Dynamo\Dynamo Core\2\viewExtensions\"
 
-xcopy /y /q "C:\Users\Radu\Documents\GitHub\DynamoServer\Extensions\bin\Debug\DynamoServer.dll" "C:\Program Files\Dynamo\Dynamo Core\2\viewExtensions\"
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

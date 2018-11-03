@@ -9,7 +9,12 @@ namespace DynamoServer.Server
         {
             Get["/"] = x =>
             {
-                return Response.AsFile("Views/index.html", "text/html");
+                return Response.AsFile("Views/start.html", "text/html");
+            };
+
+            Get["/stop"] = x =>
+            {
+                return Response.AsFile("Views/stop.html", "text/html");
             };
 
             Get["/time"] = x => { return "Hello, it is now " + DateTime.Now.ToLongTimeString(); };

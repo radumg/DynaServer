@@ -3,9 +3,8 @@ using Dynamo.ViewModels;
 using Dynamo.Wpf.Extensions;
 using DynamoServer.Server;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -66,6 +65,11 @@ namespace DynamoServer.Extensions
 
         public static async Task StopServerAsync()
         {
+            // first open the shutting down server page.
+            // yes, i prioritise UX over speed here, deal with it.
+            await Task.Run(() => Process.Start(Server.UrlBase + "/stop"));
+            Thread.Sleep(3000);
+
             var message = $"[ {DateTime.Now} ] : Stopping server on machine {Environment.MachineName}";
 
             // stop server and continue execution
@@ -93,5 +97,26 @@ namespace DynamoServer.Extensions
         }
 
         public void Dispose() { }
+
+        static Task<int> RunProcessAsync(string fileName)
+        {
+            var tcs = new TaskCompletionSource<int>();
+
+            var process = new Process
+            {
+                StartInfo = { FileName = fileName },
+                EnableRaisingEvents = true
+            };
+
+            process.Exited += (sender, args) =>
+            {
+                tcs.SetResult(process.ExitCode);
+                process.Dispose();
+            };
+
+            process.Start();
+
+            return tcs.Task;
+        }
     }
 }
