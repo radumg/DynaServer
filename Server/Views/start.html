@@ -12,7 +12,6 @@
 </head>
 <body>
     <section class="hero is-primary">
-        <!-- http://dynamobim.org/wp-content/uploads/forum-assets/yu-keautodesk-com/11/04/20150713-Hero-1.png -->
         <div class="hero-body">
             <div class="columns">
                 <div class="column is-12">
@@ -25,7 +24,9 @@
                         <h5 class="subtitle">
                             This <a href="http://dynamobim.org/" target="_blank"><em><u>Dynamo extension</u></em></a>  allows bi-directional communication and control of Dynamo as a REST API.
                         </h5>
+                        <!-- Text snippet -->
                         <p>Check out what you can do with it by browsing and testing the endpoints below.</p>
+
                         <a href="https://github.com/radumg/DynamoServer" target="_blank" class="button is-primary">
                             <span class="icon">
                                 <i class="fab fa-github"></i>
@@ -47,7 +48,6 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-
                 <!-- Left sidebar menu -->
                 <div class="column is-3">
                     <aside class="is-medium menu">
@@ -59,6 +59,7 @@
                                 <a href="#workspaces" class=""><i class="fab fa-codepen"></i>  Workspaces</a>
                                 <ul class="menu-list">
                                     <li><a href="#openfile" class="tag is-white is-medium">Open file</a></li>
+                                    <li><a href="#uploadfile" class="tag is-white is-medium">Upload file</a></li>
                                     <li><a href="#getopenfilename" class="tag is-white is-medium">Get open filename</a></li>
                                     <li><a href="#closefile" class="tag is-white is-medium">Close file</a></li>
                                     <li><a href="#rungraph" class="tag is-white is-medium">Run graph</a></li>
@@ -102,15 +103,13 @@
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <div class="field has-addons">
-                                        <p class="control">
-                                            <input class="input has-addons" type="text" placeholder="Paste in filepath here.">
-                                        </p>
-                                        <p class="control">
-                                            <button class="button is-primary" onclick="alertme()">
-                                                <span>Open file</span>
-                                            </button>
-                                        </p>
+                                    <div class="field">
+                                        <input class="input has-addons" type="text" placeholder="Paste in filepath here.">
+                                    </div>
+                                    <div class="field">
+                                        <button class="button is-primary" onclick="alertme()">
+                                            <span>Open file</span>
+                                        </button>
                                     </div>
                                     <em>Result :</em>
                                     <div class="notification">
@@ -120,6 +119,47 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Upload file -->
+                        <div class="box">
+                            <div class="columns">
+                                <div class="column">
+                                    <h4 id="upload" class="title is-3">Upload file</h4>
+                                    Instructs Dynamo to open the file found at the supplied filepath.
+                                    <br /> <br />
+                                    <article class="message is-primary">
+                                        <div class="message-body">
+                                            URL</br>
+                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Workspaces/Upload</strong>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="column">
+                                    <h6>Test this endpoint</h6>
+                                    <div class="file is-primary has-name is-fullwidth">
+                                        <label class="file-label is-size-6">
+                                            <input class="file-input" type="file" name="resume">
+                                            <span class="file-cta">
+                                                <span class="file-icon">
+                                                    <i class="fas fa-upload"></i>
+                                                </span>
+                                                <span class="file-label">
+                                                    Choose a file…
+                                                </span>
+                                            </span>
+                                            <span class="file-name">
+                                                No file selected.
+                                            </span>
+                                        </label>
+                                    </div></br>
+                                    <em>Result :</em>
+                                    <div class="notification">
+                                        <button class="delete"></button>
+                                        ...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Get open filename -->
                         <div class="box">
                             <div class="columns">
@@ -136,7 +176,7 @@
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="alertme()">
+                                    <button class="button is-primary" onclick="getOpenFile()">
                                         <span>Get open filename</span>
                                     </button></br></br>
                                     <em>Result :</em>
@@ -179,19 +219,19 @@
                             <div class="columns">
                                 <div class="column">
                                     <h4 id="rungraph" class="title is-3">Run graph</h4>
-                                    Instructs Dynamo to open the file found at the supplied filepath.
+                                    Instructs Dynamo to run the currently open graph.
                                     <br /> <br />
                                     <article class="message is-primary">
                                         <div class="message-body">
                                             URL</br>
-                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Workspaces/Open/<em>{filepath}</em></strong>
+                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Workspaces/Run</strong>
                                         </div>
                                     </article>
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
                                     <button class="button is-primary" onclick="alertme()">
-                                        <span>Close file</span>
+                                        <span>Run graph</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
@@ -213,14 +253,14 @@
                                     <article class="message is-primary">
                                         <div class="message-body">
                                             URL</br>
-                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Workspaces/Open/<em>{filepath}</em></strong>
+                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Nodes/Add/<em>{nodeName}</em></strong>
                                         </div>
                                     </article>
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
                                     <button class="button is-primary" onclick="alertme()">
-                                        <span>Close file</span>
+                                        <span>Add node</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
@@ -290,7 +330,7 @@
                         <div class="box">
                             <div class="columns">
                                 <div class="column">
-                                    <h4 id="installpackage" class="title is-3">Install pacakage</h4>
+                                    <h4 id="installpackage" class="title is-3">Install package</h4>
                                     Instructs Dynamo to install the specified package from the Dynamo Package Manager.
                                     <br /> <br />
                                     <article class="message is-primary">
@@ -313,7 +353,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button onclick="closefile">get google</button>
+                        <button id="clicker" onclick="closefile">get google</button>
                         <p id="demo">Let AJAX change this text.</p>
                     </div>
                 </div>
@@ -435,9 +475,11 @@
         </div>
 
     </footer>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.js'></script>
 
     <!-- Scripts -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <script>
         function alertme() {
             alert("Hello! I am an alert box!!");
@@ -454,6 +496,30 @@
             xhttp.open("GET", "/", true);
             xhttp.send();
         }
+
+        function getOpenFile() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("demo").innerHTML =
+                        this.responseText;
+                }
+            };
+            xhttp.open("GET", "/Workspace/Current", true);
+            xhttp.send();
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#clicker").click(function () {
+                alert("Hello! I am an alert box!!");
+                $.ajax({
+                    url: "www.google.com", success: function (result) {
+                        $("#demo").html(result);
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>

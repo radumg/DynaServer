@@ -18,6 +18,7 @@ namespace DynamoServer.Server
                 return Response.AsJson(feeds);
             };
 
+            Get["/Current"] = OpenFile;
             Get["/Open/{filepath}"] = OpenFile;
             Get["/Close"] = CloseFile;
 
@@ -26,6 +27,19 @@ namespace DynamoServer.Server
 
         }
 
+
+        private dynamic CurrentFile(dynamic parameters)
+        {
+            string file = "";
+            ServerViewExtension.dispatcher.Invoke(() => {
+                file = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.FileName;
+                }
+            );
+
+            var html = @"<h3>Currently open file</h3></br>" + file;
+
+            return Response.AsText(html, "text/html");
+        }
 
         private dynamic OpenFile(dynamic parameters)
         {
