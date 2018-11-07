@@ -1,39 +1,43 @@
-﻿using DynamoServer.Extensions;
+﻿using Dynamo.Models;
+using DynamoServer.Extensions;
 using Nancy;
-using System.Linq;
+using System;
+using System.IO;
 
 namespace DynamoServer.Server
 {
-    /// <summary>
-    /// This module only handles requests that target the /json endpoints.
-    /// </summary>
     public class DynamoWorkspaceModule : NancyModule
     {
         public DynamoWorkspaceModule() : base("/Workspace")
         {
-            // would capture routes like /hello/nancy sent as a GET request
-            Get["/"] = parameters =>
-            {
-                var feeds = new string[] { "foo", "bar" };
-                return Response.AsJson(feeds);
-            };
+            Get["/"] = CurrentFile;
+            Get["/Current"] = CurrentFile;
 
-            Get["/Current"] = OpenFile;
             Get["/Open/{filepath}"] = OpenFile;
             Get["/Close"] = CloseFile;
-
-            Get["/Nodes"] = GetNodes;
-            Get["/Nodes/Add/{nodename}"] = AddNode;
-
+            Get["/Run"] = RunGraph;
+            Get["/Save"] = SaveFile;
         }
 
+        private dynamic RunGraph(dynamic parameters)
+        {
+            ServerViewExtension.RunInContext(() =>
+            {
+                var vm = ServerViewExtension.dynamoViewModel;
+                vm.CurrentSpaceViewModel.RunSettingsViewModel.Model.RunType = RunType.Manual;
+                vm.Model.ForceRun();
+            });
+
+            return "ran";
+        }
 
         private dynamic CurrentFile(dynamic parameters)
         {
             string file = "";
-            ServerViewExtension.dispatcher.Invoke(() => {
+            ServerViewExtension.RunInContext(() =>
+            {
                 file = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.FileName;
-                }
+            }
             );
 
             var html = @"<h3>Currently open file</h3></br>" + file;
@@ -43,46 +47,58 @@ namespace DynamoServer.Server
 
         private dynamic OpenFile(dynamic parameters)
         {
-            return "Your filename is : " + parameters.filepath;
+            string result = "";
+            string file = Convert.ToString(parameters.filepath);
+            if (string.IsNullOrWhiteSpace(file)) return "Invalid filepath supplied";
+            if (!File.Exists(file)) return 404;
+
+            ServerViewExtension.RunInContext(() =>
+            {
+                var vm = ServerViewExtension.dynamoViewModel;
+
+                vm.CloseHomeWorkspaceCommand.Execute(null);
+                vm.OpenCommand.Execute(file);
+                result = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.FileName;
+            });
+
+            return Response.AsText("Opened file : " + result, "text/html");
         }
 
         private dynamic CloseFile(dynamic parameters)
         {
             string file = "";
-            ServerViewExtension.dispatcher.Invoke(() => {
-                file = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.FileName;
-                ServerViewExtension.DynamoLogger.Log("Closed " + file);
-                ServerViewExtension.dynamoViewModel.CloseHomeWorkspaceCommand.Execute(null);
+
+            ServerViewExtension.RunInContext(() =>
+                {
+                    file = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.FileName;
+                    ServerViewExtension.DynamoLogger.Log("Closed " + file);
+                    ServerViewExtension.dynamoViewModel.CloseHomeWorkspaceCommand.Execute(null);
                 }
             );
 
             return "Closed file : " + file;
         }
 
-
-        private dynamic AddNode(dynamic parameters)
+        private dynamic SaveFile(dynamic parameters)
         {
-            return "Your node name is : " + parameters.nodename;
-        }
+            string file = "";
+            string result = "";
 
-        private dynamic GetNodes(dynamic parameters)
-        {
-            var allNodes = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.Nodes.Select(x => x.Name).ToList();
-
-            string html = "" +
-                "<h2>Current workspace nodes : </h2></br>" +
-                "<ul></br>";
-
-            foreach (var item in allNodes)
+            ServerViewExtension.RunInContext(() =>
             {
-                html += "<li>" + item + "</li>";
+                file = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.FileName;
+                if (string.IsNullOrWhiteSpace(file)) result = "No file is open, did not save anything.";
+                else
+                {
+                    ServerViewExtension.DynamoLogger.Log("Saving " + file);
+                    ServerViewExtension.dynamoViewModel.SaveCommand.Execute(null);
+                    result = "Saved file : " + file;
+                }
             }
-            html += "</ul></br>";
+            );
 
-            return Response.AsText(html, "text/html");
+            return result;
         }
-
-
 
     }
 }
