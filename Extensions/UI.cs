@@ -9,15 +9,15 @@ namespace DynamoServer.Extensions
 {
     public static class UI
     {
-        internal static MenuItem ServerMenu;
-        internal static MenuItem StartServerMenuItem;
-        internal static MenuItem StopServerMenuItem;
-        internal static MenuItem CheckServerStatusMenuItem;
+        public static MenuItem DynamoServerMenu;
+        private static MenuItem StartServerMenuItem;
+        private static MenuItem StopServerMenuItem;
+        private static MenuItem CheckServerStatusMenuItem;
 
         static UI()
         {
             // let's now create a completely top-level new menu item
-            ServerMenu = new MenuItem { Header = "Dynamo Server" };
+            DynamoServerMenu = new MenuItem { Header = "Dynamo Server" };
 
             // and now we add a new sub-menu item that says hello when clicked
             StartServerMenuItem = new MenuItem { Header = "Start Server" };
@@ -29,9 +29,9 @@ namespace DynamoServer.Extensions
             StopServerMenuItem.Click += Events.OnServerStop;
             CheckServerStatusMenuItem.Click += Events.OnCheckServerStatus;
 
-            ServerMenu.Items.Add(StartServerMenuItem);
-            ServerMenu.Items.Add(StopServerMenuItem);
-            ServerMenu.Items.Add(CheckServerStatusMenuItem);
+            DynamoServerMenu.Items.Add(StartServerMenuItem);
+            DynamoServerMenu.Items.Add(StopServerMenuItem);
+            DynamoServerMenu.Items.Add(CheckServerStatusMenuItem);
         }
     }
 }
