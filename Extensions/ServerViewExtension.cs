@@ -22,7 +22,7 @@ namespace DynamoServer.Extensions
         internal static DynamoViewModel dynamoViewModel => viewLoadedParams.DynamoWindow.DataContext as DynamoViewModel;
         internal static DynamoLogger DynamoLogger => dynamoViewModel.Model.Logger;
         internal static DynamoWebServer Server = null;
-        internal static Dispatcher dispatcher;
+        private static Dispatcher dispatcher;
 
         public ServerViewExtension()
         {
@@ -41,7 +41,7 @@ namespace DynamoServer.Extensions
             Events.RegisterEventHandlers();
 
             // add Dynamo Server menu to Dynamo UI
-            viewLoadedParams.dynamoMenu.Items.Add(DynamoServer.Extensions.UI.ServerMenu);
+            viewLoadedParams.dynamoMenu.Items.Add(DynamoServer.Extensions.UI.DynamoServerMenu);
 
             // hold reference to thread so we can call methods from web server thread
             dispatcher = Dispatcher.CurrentDispatcher;
@@ -98,7 +98,14 @@ namespace DynamoServer.Extensions
 
         public void Dispose() { }
 
-        static Task<int> RunProcessAsync(string fileName)
+        #region Utilities
+
+        public static void RunInContext(Action action)
+        {
+            dispatcher.Invoke(action);
+        }
+
+        private static Task<int> RunProcessAsync(string fileName)
         {
             var tcs = new TaskCompletionSource<int>();
 
@@ -118,5 +125,7 @@ namespace DynamoServer.Extensions
 
             return tcs.Task;
         }
+
+        #endregion
     }
 }
