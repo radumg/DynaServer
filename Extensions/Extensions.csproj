@@ -139,6 +139,7 @@
   <ItemGroup>
     <Compile Include="Events.cs" />
     <Compile Include="Modules\AboutModule.cs" />
+    <Compile Include="Modules\PackagesModule.cs" />
     <Compile Include="Modules\NodesModule.cs" />
     <Compile Include="Modules\WorkspaceModule.cs" />
     <Compile Include="Modules\JsonModule.cs" />
