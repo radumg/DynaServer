@@ -59,8 +59,9 @@
                                 <a href="#workspaces" class=""><i class="fab fa-codepen"></i>  Workspaces</a>
                                 <ul class="menu-list">
                                     <li><a href="#openfile" class="tag is-white is-medium">Open file</a></li>
-                                    <li><a href="#uploadfile" class="tag is-white is-medium">Upload file</a></li>
                                     <li><a href="#getopenfilename" class="tag is-white is-medium">Get open filename</a></li>
+                                    <li><a href="#uploadfile" class="tag is-white is-medium">Upload file</a></li>
+                                    <li><a href="#savefile" class="tag is-white is-medium">Save file</a></li>
                                     <li><a href="#closefile" class="tag is-white is-medium">Close file</a></li>
                                     <li><a href="#rungraph" class="tag is-white is-medium">Run graph</a></li>
                                 </ul>
@@ -68,8 +69,9 @@
                             <li>
                                 <a href="#nodes" class=""><i class="fab fa-codepen"></i> Nodes</a>
                                 <ul class="menu-list">
+                                    <li><a href="#getnodes" class="tag is-white is-medium">Get nodes</a></li>
                                     <li><a href="#addnode" class="tag is-white is-medium">Add node</a></li>
-                                    <li><a href="#getnodeoutput" class="tag is-white is-medium">Get node output</a></li>
+                                    <li><a href="#clear" class="tag is-white is-medium">Clear canvas</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -77,6 +79,7 @@
                                 <ul class="menu-list">
                                     <li><a href="#getpackages" class="tag is-white is-medium">Get packages</a></li>
                                     <li><a href="#installpackage" class="tag is-white is-medium">Install package</a></li>
+                                    <li><a href="#removepackage" class="tag is-white is-medium">Remove package</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -111,6 +114,33 @@
                                             <span>Open file</span>
                                         </button>
                                     </div>
+                                    <em>Result :</em>
+                                    <div class="notification">
+                                        <button class="delete"></button>
+                                        ...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Get open filename -->
+                        <div class="box">
+                            <div class="columns">
+                                <div class="column">
+                                    <h4 id="getopenfilename" class="title is-3">Get open filename</h4>
+                                    Asks Dynamo what the name of the currently open file is.
+                                    <br /> <br />
+                                    <article class="message is-primary">
+                                        <div class="message-body">
+                                            URL</br>
+                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Workspaces/Current</strong>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="column">
+                                    <h6>Test this endpoint</h6>
+                                    <button class="button is-primary" onclick="getOpenFile()">
+                                        <span>Get open filename</span>
+                                    </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
@@ -159,25 +189,24 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Get open filename -->
+                        <!-- Save file -->
                         <div class="box">
                             <div class="columns">
                                 <div class="column">
-                                    <h4 id="getopenfilename" class="title is-3">Get open filename</h4>
-                                    Asks Dynamo what the name of the currently open file is.
+                                    <h4 id="savefile" class="title is-3">Save file</h4>
+                                    Instructs Dynamo to save the currently open file.
                                     <br /> <br />
                                     <article class="message is-primary">
                                         <div class="message-body">
                                             URL</br>
-                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Workspaces/Current</strong>
+                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Workspaces/Save</strong>
                                         </div>
                                     </article>
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="getOpenFile()">
-                                        <span>Get open filename</span>
+                                    <button class="button is-primary" onclick="SaveFile()">
+                                        <span>Save file</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
@@ -243,6 +272,33 @@
                         </div>
 
                         <h3 class="title is-2" id="nodes">Nodes</h3><hr />
+                        <!-- Get nodes -->
+                        <div class="box">
+                            <div class="columns">
+                                <div class="column">
+                                    <h4 id="getnodes" class="title is-3">Get nodes on canvas.</h4>
+                                    Get a list of all the nodes on the Dynamo canvas.
+                                    <br /> <br />
+                                    <article class="message is-primary">
+                                        <div class="message-body">
+                                            URL</br>
+                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Nodes/</strong>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="column">
+                                    <h6>Test this endpoint</h6>
+                                    <button class="button is-primary" onclick="GetNodes()">
+                                        <span>Get nodes</span>
+                                    </button></br></br>
+                                    <em>Result :</em>
+                                    <div class="notification">
+                                        <button class="delete"></button>
+                                        ...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Add node to canvas -->
                         <div class="box">
                             <div class="columns">
@@ -270,24 +326,24 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Get node output -->
+                        <!-- Clear canvas -->
                         <div class="box">
                             <div class="columns">
                                 <div class="column">
-                                    <h4 id="getnodeoutput" class="title is-3">Get node output </h4>
-                                    Gets the output value of a node if Dynamo.
+                                    <h4 id="clear" class="title is-3">Clear</h4>
+                                    Instructs Dynamo to completely clear the canvas, deleting all nodes, annotations & groups.
                                     <br /> <br />
                                     <article class="message is-primary">
                                         <div class="message-body">
                                             URL</br>
-                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Workspaces/Open/<em>{filepath}</em></strong>
+                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Nodes/Clear</strong>
                                         </div>
                                     </article>
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="alertme()">
-                                        <span>Close file</span>
+                                    <button class="button is-primary" onclick="Clear()">
+                                        <span>Add node</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
@@ -315,7 +371,7 @@
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="alertme()">
+                                    <button class="button is-primary" onclick="GetPackages()">
                                         <span>Close file</span>
                                     </button></br></br>
                                     <em>Result :</em>
@@ -336,14 +392,14 @@
                                     <article class="message is-primary">
                                         <div class="message-body">
                                             URL</br>
-                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Workspaces/Open/<em>{filepath}</em></strong>
+                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Packages/Install/<em>{packagename}</em></strong>
                                         </div>
                                     </article>
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
                                     <button class="button is-primary" onclick="alertme()">
-                                        <span>Close file</span>
+                                        <span>Install package</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
@@ -353,6 +409,34 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Remove package -->
+                        <div class="box">
+                            <div class="columns">
+                                <div class="column">
+                                    <h4 id="removepackage" class="title is-3">Remove package</h4>
+                                    Instructs Dynamo to remove the specified package, using the Dynamo Package Manager.
+                                    <br /> <br />
+                                    <article class="message is-primary">
+                                        <div class="message-body">
+                                            URL</br>
+                                            <em class="has-text-grey-light">http://localhost:1234/</em><strong>Packages/Remove/<em>{packagename}</em></strong>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="column">
+                                    <h6>Test this endpoint</h6>
+                                    <button class="button is-primary" onclick="RemovePackage()">
+                                        <span>Remove package</span>
+                                    </button></br></br>
+                                    <em>Result :</em>
+                                    <div class="notification">
+                                        <button class="delete"></button>
+                                        ...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <button id="clicker" onclick="closefile">get google</button>
                         <p id="demo">Let AJAX change this text.</p>
                     </div>
