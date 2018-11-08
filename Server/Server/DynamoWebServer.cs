@@ -54,6 +54,8 @@ namespace DynamoServer.Server
 
         public void Stop()
         {
+            if (!this.IsRunning) return;
+
             Console.WriteLine("Stopping web service on " + UrlBase);
 
             server.Stop();
