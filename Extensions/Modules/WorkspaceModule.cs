@@ -19,32 +19,6 @@ namespace DynamoServer.Server
             Get["/Save"] = SaveFile;
         }
 
-        private dynamic RunGraph(dynamic parameters)
-        {
-            ServerViewExtension.RunInContext(() =>
-            {
-                var vm = ServerViewExtension.dynamoViewModel;
-                vm.CurrentSpaceViewModel.RunSettingsViewModel.Model.RunType = RunType.Manual;
-                vm.Model.ForceRun();
-            });
-
-            return "ran";
-        }
-
-        private dynamic CurrentFile(dynamic parameters)
-        {
-            string file = "";
-            ServerViewExtension.RunInContext(() =>
-            {
-                file = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.FileName;
-            }
-            );
-
-            var html = @"<h3>Currently open file</h3></br>" + file;
-
-            return Response.AsText(html, "text/html");
-        }
-
         private dynamic OpenFile(dynamic parameters)
         {
             string result = "";
@@ -64,19 +38,32 @@ namespace DynamoServer.Server
             return Response.AsText("Opened file : " + result, "text/html");
         }
 
-        private dynamic CloseFile(dynamic parameters)
+        private dynamic CurrentFile(dynamic parameters)
         {
             string file = "";
-
             ServerViewExtension.RunInContext(() =>
-                {
-                    file = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.FileName;
-                    ServerViewExtension.DynamoLogger.Log("Closed " + file);
-                    ServerViewExtension.dynamoViewModel.CloseHomeWorkspaceCommand.Execute(null);
-                }
+            {
+                file = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.FileName;
+            }
             );
 
-            return "Closed file : " + file;
+            var html = @"<h3>Currently open file</h3></br>" + file;
+
+            return Response.AsText(html, "text/html");
+        }
+
+        private dynamic UploadFile(dynamic parameters)
+        {
+            string file = "";
+            ServerViewExtension.RunInContext(() =>
+            {
+                file = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.FileName;
+            }
+            );
+
+            var html = @"<h3>Currently open file</h3></br>" + file;
+
+            return Response.AsText(html, "text/html");
         }
 
         private dynamic SaveFile(dynamic parameters)
@@ -100,5 +87,31 @@ namespace DynamoServer.Server
             return result;
         }
 
+        private dynamic CloseFile(dynamic parameters)
+        {
+            string file = "";
+
+            ServerViewExtension.RunInContext(() =>
+            {
+                file = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.FileName;
+                ServerViewExtension.DynamoLogger.Log("Closed " + file);
+                ServerViewExtension.dynamoViewModel.CloseHomeWorkspaceCommand.Execute(null);
+            }
+            );
+
+            return "Closed file : " + file;
+        }
+
+        private dynamic RunGraph(dynamic parameters)
+        {
+            ServerViewExtension.RunInContext(() =>
+            {
+                var vm = ServerViewExtension.dynamoViewModel;
+                vm.CurrentSpaceViewModel.RunSettingsViewModel.Model.RunType = RunType.Manual;
+                vm.Model.ForceRun();
+            });
+
+            return "ran";
+        }
     }
 }
