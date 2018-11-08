@@ -4,10 +4,13 @@ using System.Reflection;
 namespace DynamoServer.Server
 {
     /// <summary>
-    /// This module only handles requests that target the /about endpoints.
+    /// This module provides details about the currently running DynamoServer and Dynamo itself.
     /// </summary>
     public class AboutModule : NancyModule
     {
+        /// <summary>
+        /// Get version information for DynamoServer and Dynamo.
+        /// </summary>
         public AboutModule() : base("/about")
         {
             Get["/"] = x =>

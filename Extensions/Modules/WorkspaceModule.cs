@@ -6,9 +6,14 @@ using System.IO;
 
 namespace DynamoServer.Server
 {
-    public class DynamoWorkspaceModule : NancyModule
+    /// <summary>
+    /// Module that handles interactions with the Dynamo workspace itself, allowing you to open, save, close, run graphs and more.
+    /// </summary>
+    public class WorkspaceModule : NancyModule
     {
-        public DynamoWorkspaceModule() : base("/Workspace")
+        public const string DYNAMO_FILE_EXTENSION = ".DYN";
+
+        public WorkspaceModule() : base("/Workspace")
         {
             Get["/"] = CurrentFile;
             Get["/Current"] = CurrentFile;
@@ -19,11 +24,18 @@ namespace DynamoServer.Server
             Get["/Save"] = SaveFile;
         }
 
-        private dynamic OpenFile(dynamic parameters)
+        /// <summary>
+        /// Instruct Dynamo to open the specified file, must have the .dyn extension.
+        /// If any file is currently open, it closes it before opening the new one.
+        /// </summary>
+        /// <param name="parameters">Requires a property called "filepath", which specified the filepath to load from.</param>
+        /// <returns>HTML result summary.</returns>
+        public dynamic OpenFile(dynamic parameters)
         {
             string result = "";
             string file = Convert.ToString(parameters.filepath);
-            if (string.IsNullOrWhiteSpace(file)) return "Invalid filepath supplied";
+            if (string.IsNullOrWhiteSpace(file)) return "Empty filepath supplied";
+            if (!file.ToUpper().EndsWith(DYNAMO_FILE_EXTENSION)) return "File does not have the correct extension (.DYN)";
             if (!File.Exists(file)) return 404;
 
             ServerViewExtension.RunInContext(() =>
@@ -38,7 +50,12 @@ namespace DynamoServer.Server
             return Response.AsText("Opened file : " + result, "text/html");
         }
 
-        private dynamic CurrentFile(dynamic parameters)
+        /// <summary>
+        /// Asks Dynamo what the path & name of the currently open file is.
+        /// </summary>
+        /// <param name="parameters">Not used, can specify null.</param>
+        /// <returns>HTML result summary.</returns>
+        public dynamic CurrentFile(dynamic parameters)
         {
             string file = "";
             ServerViewExtension.RunInContext(() =>
@@ -52,7 +69,12 @@ namespace DynamoServer.Server
             return Response.AsText(html, "text/html");
         }
 
-        private dynamic UploadFile(dynamic parameters)
+        /// <summary>
+        /// Uploads a graph (.dyn) file to Dynamo and instruct Dynamo to open it.
+        /// </summary>
+        /// <param name="parameters">Not used, can specify null.</param>
+        /// <returns>HTML result summary.</returns>
+        public dynamic UploadFile(dynamic parameters)
         {
             string file = "";
             ServerViewExtension.RunInContext(() =>
@@ -66,7 +88,12 @@ namespace DynamoServer.Server
             return Response.AsText(html, "text/html");
         }
 
-        private dynamic SaveFile(dynamic parameters)
+        /// <summary>
+        /// Saves the currently open Dynamo file.
+        /// </summary>
+        /// <param name="parameters">Not used, can specify null.</param>
+        /// <returns>HTML result summary.</returns>
+        public dynamic SaveFile(dynamic parameters)
         {
             string file = "";
             string result = "";
@@ -87,7 +114,12 @@ namespace DynamoServer.Server
             return result;
         }
 
-        private dynamic CloseFile(dynamic parameters)
+        /// <summary>
+        /// Closes the currently open Dynamo file, if any.
+        /// </summary>
+        /// <param name="parameters">Not used, can specify null.</param>
+        /// <returns>HTML result summary.</returns>
+        public dynamic CloseFile(dynamic parameters)
         {
             string file = "";
 
@@ -102,7 +134,12 @@ namespace DynamoServer.Server
             return "Closed file : " + file;
         }
 
-        private dynamic RunGraph(dynamic parameters)
+        /// <summary>
+        /// Forces Dynamo to run the currently open graph.
+        /// </summary>
+        /// <param name="parameters">Not used, can specify null.</param>
+        /// <returns>HTML result summary.</returns>
+        public dynamic RunGraph(dynamic parameters)
         {
             ServerViewExtension.RunInContext(() =>
             {

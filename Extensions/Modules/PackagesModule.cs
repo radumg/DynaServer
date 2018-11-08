@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace DynamoServer.Server
 {
+    /// <summary>
+    /// Module to handle packages in Dynamo, allowing you to list them or install new packages or remove existing ones.
+    /// </summary>
     public class PackagesModule : NancyModule
     {
         public PackagesModule() : base("/Packages")
@@ -15,7 +18,12 @@ namespace DynamoServer.Server
             Get["/Remove/{packagename}"] = RemovePackage;
         }
 
-        private dynamic GetPackages(dynamic parameters)
+        /// <summary>
+        /// Get the list of currently installed packages in Dynamo.
+        /// </summary>
+        /// <param name="parameters">Not used, can specify null.</param>
+        /// <returns>HTML result summary.</returns>
+        public dynamic GetPackages(dynamic parameters)
         {
             string html = "";
             List<string> packageNames = new List<string>();
@@ -46,7 +54,12 @@ namespace DynamoServer.Server
             return Response.AsText(html, "text/html");
         }
 
-        private dynamic InstallPackage(dynamic parameters)
+        /// <summary>
+        /// Installs the specified package in Dynamo, using the Package Manager.
+        /// </summary>
+        /// <param name="parameters">The name of the package to install.</param>
+        /// <returns>HTML result summary.</returns>
+        public dynamic InstallPackage(dynamic parameters)
         {
             string packageName = parameters.packagename;
             if (string.IsNullOrWhiteSpace(packageName)) return "Supplied package name was invalid or empty.";
@@ -67,7 +80,12 @@ namespace DynamoServer.Server
             return Response.AsText(result, "text/html");
         }
 
-        private dynamic RemovePackage(dynamic parameters)
+        /// <summary>
+        /// Remove the specified package from Dynamo, using the Package Manager.
+        /// </summary>
+        /// <param name="parameters">The name of the package to remove.</param>
+        /// <returns>HTML result summary.</returns>
+        public dynamic RemovePackage(dynamic parameters)
         {
             string html = "";
             int packageCountBefore = 0, packageCountAfter = 0;
@@ -83,6 +101,5 @@ namespace DynamoServer.Server
 
             return Response.AsText(html, "text/html");
         }
-
     }
 }

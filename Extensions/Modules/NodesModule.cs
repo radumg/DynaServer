@@ -5,16 +5,24 @@ using System.Linq;
 
 namespace DynamoServer.Server
 {
+    /// <summary>
+    /// Module to handle basic operations with nodes (get, add, remove) on the Dynamo canvas.
+    /// </summary>
     public class NodesModule : NancyModule
     {
         public NodesModule() : base("/Nodes")
         {
             Get["/"] = GetNodes;
-            Get["/Clear"] = ClearNodes;
+            Get["/Clear"] = Clear;
             Get["/Add/{nodename}"] = AddNode;
         }
 
-        private dynamic AddNode(dynamic parameters)
+        /// <summary>
+        /// Add a node to the Dynamo canvas.
+        /// </summary>
+        /// <param name="parameters">The node name, example : List.Map</param>
+        /// <returns>HTML result summary.</returns>
+        public dynamic AddNode(dynamic parameters)
         {
             string node = parameters.nodename;
             if (string.IsNullOrWhiteSpace(node)) return "Supplied node was empty";
@@ -50,7 +58,12 @@ namespace DynamoServer.Server
             return Response.AsText(result, "text/html");
         }
 
-        private dynamic GetNodes(dynamic parameters)
+        /// <summary>
+        /// Gets a list of all the nodes currently on the Dynamo canvas.
+        /// </summary>
+        /// <param name="parameters">Not used, can specify null.</param>
+        /// <returns>HTML result summary.</returns>
+        public dynamic GetNodes(dynamic parameters)
         {
             var allNodes = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.Nodes.Select(x => x.Name).ToList();
 
@@ -67,7 +80,12 @@ namespace DynamoServer.Server
             return Response.AsText(html, "text/html");
         }
 
-        private dynamic ClearNodes(dynamic parameters)
+        /// <summary>
+        /// Clears (deletes) everything on the Dynamo canvas, including Nodes, Annotations, etc.
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns>HTML result summary.</returns>
+        public dynamic Clear(dynamic parameters)
         {
             string html = "";
             int nodeCountBefore = 0, nodeCountAfter = 0;
@@ -88,6 +106,5 @@ namespace DynamoServer.Server
 
             return Response.AsText(html, "text/html");
         }
-
     }
 }
