@@ -167,12 +167,35 @@ del "C:\Program Files\Dynamo\Dynamo Core\2\viewExtensions\DynamoServer_ViewExten
 </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>echo copying to Dynamo Extensions folder
-xcopy /y /q "$(TargetDir)*" "C:\Program Files\Dynamo\Dynamo Core\2\extensions"
-xcopy /y /q "$(ProjectDir)Resources\*ExtensionDefinition.xml" "C:\Program Files\Dynamo\Dynamo Core\2\extensions"
-
-echo copying to Dynamo ViewExtensions folder
-xcopy /y /q "$(TargetDir)*" "C:\Program Files\Dynamo\Dynamo Core\2\viewExtensions"
-xcopy /y /q "$(ProjectDir)Resources\*ViewExtensionDefinition.xml" "C:\Program Files\Dynamo\Dynamo Core\2\viewExtensions"</PostBuildEvent>
+    <PostBuildEvent></PostBuildEvent>
   </PropertyGroup>
+  <!--Using AfterBuild Events to copy the extension to the Dynamo packages folder-->
+  <Target Name="AfterBuild">
+    <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++" />
+    <Message Importance="High" Text="Started building the Dynamo extension" />
+    <!--Defining folders to copy-->
+    <ItemGroup>
+      <SourceDlls Include="$(TargetDir)*.dll" />
+      <SourcePdbs Include="$(TargetDir)*.pdb" />
+      <SourcePkg Include="$(ProjectDir)pkg.json" />
+      <SourceExtension Include="$(TargetDir)*ExtensionDefinition.xml" />
+      <PackageFolder Include="$(SolutionDir)..\package" />
+    </ItemGroup>
+    <!--Copying to Build Folder-->
+    <Copy SourceFiles="@(SourceDlls)" DestinationFolder="$(PackageFolder)bin" />
+    <Copy SourceFiles="@(SourcePdbs)" DestinationFolder="$(PackageFolder)bin" />
+    <Copy SourceFiles="@(SourcePkg)" DestinationFolder="$(PackageFolder)test" />
+    <Copy SourceFiles="@(SourceExtension)" DestinationFolder="$(PackageFolder)extra" />
+    <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++" />
+    <Message Importance="High" Text="Built to $(PackageFolder)" />
+    <PropertyGroup>
+      <!--Copy to Dynamo sandbox for testing -->
+      <DeployFolder Condition="'$(Configuration)' == 'Debug'">$(AppData)\Dynamo\Dynamo Core\2.0\packages\$(SolutionName)</DeployFolder>
+      <!--Copy to Dynamo revit for publishing -->
+      <DeployFolder Condition="'$(Configuration)' == 'Release' Or '$(Configuration)' == 'DebugRevit'">$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(SolutionName)</DeployFolder>
+    </PropertyGroup>
+    <Copy SourceFiles="$(PackageFolder)" DestinationFolder="$(DeployFolder)" />
+    <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++" />
+    <Message Importance="High" Text="Deployed to $(DeployFolder)" />
+  </Target>
 </Project>
