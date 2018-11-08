@@ -168,8 +168,6 @@ xcopy /y /q "C:\Users\markt\Documents\GitHub\DynamoServer\Extensions\Resources\D
 xcopy /y /q "C:\Users\markt\Documents\GitHub\DynamoServer\Extensions\Resources\DynamoServer_ViewExtensionDefinition.xml" "C:\Users\markt\Documents\GitHub\Dynamo\bin\AnyCPU\Debug\viewExtensions\"
 
 xcopy /y /q "C:\Users\markt\Documents\GitHub\DynamoServer\Extensions\bin\Debug\DynamoServerExtensions.dll" "C:\Users\markt\Documents\GitHub\Dynamo\bin\AnyCPU\Debug\extensions\"
-xcopy /y /q "C:\Users\markt\Documents\GitHub\DynamoServer\Extensions\bin\Debug\DynamoServerExtensions.dll" "C:\Users\markt\Documents\GitHub\Dynamo\bin\AnyCPU\Debug\viewExtensions\"
-
-</PostBuildEvent>
+xcopy /y /q "C:\Users\markt\Documents\GitHub\DynamoServer\Extensions\bin\Debug\DynamoServerExtensions.dll" "C:\Users\markt\Documents\GitHub\Dynamo\bin\AnyCPU\Debug\viewExtensions\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
