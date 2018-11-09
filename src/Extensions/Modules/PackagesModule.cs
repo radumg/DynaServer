@@ -48,7 +48,7 @@ namespace DynamoServer.Server
                     .ToList();
             });
 
-            html = "<h2>Currently installed libraries : </h2></br>" +
+            html = "<h2>Currently installed libraries : </h2>" +
                  "<ul></br>";
 
             foreach (var item in uniqueLibs)
@@ -57,7 +57,7 @@ namespace DynamoServer.Server
             }
             html += "</ul></br>";
 
-            html += "<h2>Currently installed extensions : </h2></br>" +
+            html += "<h2>Currently installed extensions : </h2>" +
                    "<ul></br>";
 
             foreach (var item in packageNames)
@@ -65,6 +65,7 @@ namespace DynamoServer.Server
                 html += "<li>" + item + "</li>";
             }
             html += "</ul></br>";
+            html += "<em>Note : only Extensions are listed above, does not include ViewExtensions.";
 
             return Response.AsText(html, "text/html");
         }
