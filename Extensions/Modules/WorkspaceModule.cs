@@ -57,14 +57,25 @@ namespace DynamoServer.Server
         /// <returns>HTML result summary.</returns>
         public dynamic CurrentFile(dynamic parameters)
         {
-            string file = "";
+            string filePath = "";
+            string fileName = "";
             ServerViewExtension.RunInContext(() =>
             {
-                file = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.FileName;
+                filePath = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.FileName;
+                if (string.IsNullOrWhiteSpace(filePath))
+                {
+                    filePath = "File has not been saved yet";
+                    fileName = "Home - Default Name";
+                }
+                else
+                {
+                    int ind = filePath.LastIndexOf("\\");
+                    fileName = filePath.Remove(0, (ind + 1));
+                }
             }
             );
 
-            var html = @"<h3>Currently open file</h3></br>" + file;
+            var html = @"<h3>File Path of Current File</h3>" + filePath + "</br>" +  @"<h3>File Name of Current File</h3>" + fileName;
 
             return Response.AsText(html, "text/html");
         }
@@ -106,7 +117,7 @@ namespace DynamoServer.Server
                 {
                     ServerViewExtension.DynamoLogger.Log("Saving " + file);
                     ServerViewExtension.dynamoViewModel.SaveCommand.Execute(null);
-                    result = "Saved file : " + file;
+                    result = "Successfully Saved file : " + file;
                 }
             }
             );
