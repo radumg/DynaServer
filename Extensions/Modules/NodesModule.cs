@@ -12,7 +12,7 @@ namespace DynamoServer.Server
     {
         public NodesModule() : base("/Nodes")
         {
-            Get["/"] = GetNodes;
+            Get["/Get"] = GetNodes;
             Get["/Clear"] = Clear;
             Get["/Add/{nodename}"] = AddNode;
         }

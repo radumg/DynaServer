@@ -3,6 +3,7 @@ using DynamoServer.Extensions;
 using Nancy;
 using System;
 using System.IO;
+using System.Windows;
 
 namespace DynamoServer.Server
 {
@@ -118,7 +119,9 @@ namespace DynamoServer.Server
                     ServerViewExtension.DynamoLogger.Log("Saving " + file);
                     ServerViewExtension.dynamoViewModel.SaveCommand.Execute(null);
                     result = "Successfully Saved file : " + file;
+                    MessageBox.Show("File Saved");
                 }
+
             }
             );
 

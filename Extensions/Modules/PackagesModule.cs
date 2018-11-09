@@ -13,7 +13,7 @@ namespace DynamoServer.Server
     {
         public PackagesModule() : base("/Packages")
         {
-            Get["/"] = GetPackages;
+            Get["/Get"] = GetPackages;
             Get["/Install/{packagename}"] = InstallPackage;
             Get["/Remove/{packagename}"] = RemovePackage;
         }
@@ -29,10 +29,13 @@ namespace DynamoServer.Server
             List<string> packageNames = new List<string>();
             int packageCountBefore = 0, packageCountAfter = 0;
             IEnumerable<IExtension> packages;
+            IEnumerable<string> libraries;
 
             ServerViewExtension.RunInContext(() =>
             {
                 // TODO : get packages and remove specified one
+
+                libraries = ServerViewExtension.dynamoViewModel.Model.LibraryServices.ImportedLibraries;
                 packages = ServerViewExtension.dynamoViewModel.Model.ExtensionManager.Extensions;
                 packageCountBefore = packages.Count();
 
