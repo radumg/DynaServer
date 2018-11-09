@@ -29,13 +29,30 @@ namespace DynamoServer.Server
             List<string> packageNames = new List<string>();
             int packageCountBefore = 0, packageCountAfter = 0;
             IEnumerable<IExtension> packages;
-            IEnumerable<string> libraries;
+
 
             ServerViewExtension.RunInContext(() =>
             {
                 // TODO : get packages and remove specified one
 
-                libraries = ServerViewExtension.dynamoViewModel.Model.LibraryServices.ImportedLibraries;
+                #region List Libraries of loaded Nodes
+                var nsm = ServerViewExtension.dynamoViewModel.Model.SearchModel;
+                List<Dynamo.Search.SearchElements.NodeSearchElement> nodes = nsm.SearchEntries.ToList();
+
+                List<string> libs = new List<string>();
+                foreach (var n in nodes)
+                {
+                    var cats = n.Categories.ToList();
+                    if (cats.Count > 0)
+                    {
+                        libs.Add(cats[0]);
+                    }
+                }
+
+                List<string> uniqueLibs = libs.Distinct().ToList();
+                uniqueLibs.Sort();
+                #endregion
+
                 packages = ServerViewExtension.dynamoViewModel.Model.ExtensionManager.Extensions;
                 packageCountBefore = packages.Count();
 
@@ -43,6 +60,7 @@ namespace DynamoServer.Server
 
                 packageCountAfter = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.Nodes.Count();
             }
+
             );
 
             html = "<h2>Currently installed extensions : </h2></br>" +
