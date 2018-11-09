@@ -23,7 +23,7 @@ namespace DynamoServer.Server
 
             Get["/hello/{name}"] = parameters =>
             {
-                return "Hello " + parameters?.name;
+                return "Hello back, " + parameters?.name + " ! ";
             };
 
             Get["/echo/{value:int}"] = Echo;

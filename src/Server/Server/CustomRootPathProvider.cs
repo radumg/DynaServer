@@ -1,4 +1,5 @@
 ﻿using Nancy;
+using System;
 using System.IO;
 
 namespace DynamoServer.Server
@@ -7,8 +8,9 @@ namespace DynamoServer.Server
     {
         public string GetRootPath()
         {
-            return @"C:\Users\Radu\AppData\Roaming\Dynamo\Dynamo Core\2.0\packages\DynamoServer";
-            return Directory.GetCurrentDirectory();
+            return 
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + 
+                @"\Dynamo\Dynamo Core\2.0\packages\DynamoServer";
         }
     }
 }
