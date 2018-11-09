@@ -13,7 +13,7 @@ namespace DynamoServer.Server
     {
         public PackagesModule() : base("/Packages")
         {
-            Get["/Get"] = GetPackages;
+            Get["/"] = GetPackages;
             Get["/Install/{packagename}"] = InstallPackage;
             Get["/Remove/{packagename}"] = RemovePackage;
         }
@@ -30,7 +30,7 @@ namespace DynamoServer.Server
             int packageCountBefore = 0, packageCountAfter = 0;
             IEnumerable<IExtension> packages;
 
-            List<string> uniqueLibs = new List<string>();
+            HashSet<string> uniqueLibs = new List<string>();
 
             ServerViewExtension.RunInContext(() =>
             {
