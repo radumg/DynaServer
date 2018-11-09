@@ -7,6 +7,7 @@ namespace DynamoServer.Server
     {
         public string GetRootPath()
         {
+            return @"C:\Users\Radu\AppData\Roaming\Dynamo\Dynamo Core\2.0\packages\DynamoServer";
             return Directory.GetCurrentDirectory();
         }
     }
