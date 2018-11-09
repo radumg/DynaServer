@@ -1,0 +1,4 @@
+﻿<ExtensionDefinition>
+  <AssemblyPath>DynamoServerExtensions.dll</AssemblyPath>
+  <TypeName>DynamoServer.Extensions.ServerExtension</TypeName>
+</ExtensionDefinition>
