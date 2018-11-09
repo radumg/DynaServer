@@ -117,7 +117,7 @@ namespace DynamoServer.Server
                 {
                     ServerViewExtension.DynamoLogger.Log("Saving " + file);
                     ServerViewExtension.dynamoViewModel.SaveCommand.Execute(null);
-                    result = "Saved file : " + file;
+                    result = "Successfully Saved file : " + file;
                 }
             }
             );
