@@ -30,6 +30,7 @@ namespace DynamoServer.Server
             int packageCountBefore = 0, packageCountAfter = 0;
             IEnumerable<IExtension> packages;
 
+            List<string> uniqueLibs = new List<string>();
 
             ServerViewExtension.RunInContext(() =>
             {
@@ -49,7 +50,7 @@ namespace DynamoServer.Server
                     }
                 }
 
-                List<string> uniqueLibs = libs.Distinct().ToList();
+                uniqueLibs = libs.Distinct().ToList();
                 uniqueLibs.Sort();
                 #endregion
 
@@ -63,7 +64,16 @@ namespace DynamoServer.Server
 
             );
 
-            html = "<h2>Currently installed extensions : </h2></br>" +
+            html = "<h2>Currently installed libraries : </h2></br>" +
+                 "<ul></br>";
+
+            foreach (var item in uniqueLibs)
+            {
+                html += "<li>" + item + "</li>";
+            }
+            html += "</ul></br>";
+
+            html += "<h2>Currently installed extensions : </h2></br>" +
                    "<ul></br>";
 
             foreach (var item in packageNames)
