@@ -212,7 +212,8 @@
     </PropertyGroup>
     <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++" />
     <Message Importance="High" Text="Deployed to $(DeployFolder)" />
-
+    
+    <MakeDir Directories="$(DeployFolder)"/>
     <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(DeployFolder)\%(RecursiveDir)" SkipUnchangedFiles="false" />
   </Target>
 </Project>
