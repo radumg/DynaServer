@@ -32,9 +32,10 @@ namespace DynamoServer.Server
         /// <returns>HTML result summary.</returns>
         public dynamic OpenFile(dynamic parameters)
         {
+            if (string.IsNullOrWhiteSpace(parameters.filepath)) return "Empty filepath supplied";
+
             string result = "";
-            string file = Convert.ToString(parameters.filepath);
-            if (string.IsNullOrWhiteSpace(file)) return "Empty filepath supplied";
+            string file = parameters.filepath;
             if (!file.ToUpper().EndsWith(DYNAMO_FILE_EXTENSION)) return "File does not have the correct extension (.DYN)";
             if (!File.Exists(file)) return 404;
 

@@ -42,13 +42,11 @@ namespace DynamoServer.Server
                     var n = ServerViewExtension.dynamoViewModel.Model.CurrentWorkspace.Nodes.Select(x => "<li>" + x.Name).ToArray();
                     nodes = string.Join("</li> ", n);
 
-                    if (countBefore + 1 == countAfter)
-                        result =
-                            "<h3>Nodes on the canvas <h3><hr></br>" +
-                            "<ul>" +
-                            nodes +
-                            "</ul>";
-                    else result = $"Could not add your {node} node to canvas.";
+                    var nodeCountDiff = countAfter - countBefore;
+
+                    if (nodeCountDiff < 1) result = $"Could not add your {node} node to canvas.";
+                    else if (nodeCountDiff == 1) result = $"Added {node} node to the canvas.";
+                    else throw new Exception($"Added {nodeCountDiff} nodes to the canvas.");
                 }
                 catch (System.Exception e)
                 {
@@ -69,13 +67,13 @@ namespace DynamoServer.Server
 
             string html = "" +
                 "<h2>Current workspace nodes : </h2></br>" +
-                "<ul></br>";
+                "<ul>";
 
             foreach (var item in allNodes)
             {
                 html += "<li>" + item + "</li>";
             }
-            html += "</ul></br>";
+            html += "</ul>";
 
             return Response.AsText(html, "text/html");
         }
