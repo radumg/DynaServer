@@ -89,6 +89,7 @@
                 <!-- Right content -->
                 <div class="column is-9">
                     <div class="content is-medium">
+
                         <h3 class="title is-2" id="workspaces">Workspaces</h3><hr />
                         <!-- Open file -->
                         <div class="box">
@@ -107,7 +108,7 @@
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
                                     <div class="field">
-                                        <input class="input has-addons" type="text" placeholder="Paste in filepath here.">
+                                        <input id="openFileInput" class="input has-addons" type="text" placeholder="Paste in filepath here.">
                                     </div>
                                     <div class="field">
                                         <button class="button is-primary" onclick="openFile()">
@@ -117,7 +118,7 @@
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        <div class="openFileResult">...</div>
+                                        <div id="openFileResult">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +145,7 @@
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        ...
+                                        <div id="getOpenFileResult">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -211,7 +212,7 @@
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        ...
+                                        <div id="saveFileResult">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +239,7 @@
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        <div class="closeFileResult">...</div>
+                                        <div id="closeFileResult">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -259,13 +260,13 @@
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="runGroph()">
+                                    <button class="button is-primary" onclick="runGraph()">
                                         <span>Run graph</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        <div class="runGraphResult">...</div>
+                                        <div id="runGraphResult">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -288,13 +289,13 @@
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="GetNodes()">
+                                    <button class="button is-primary" onclick="getNodes()">
                                         <span>Get nodes</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        ...
+                                        <div id="getNodesResult">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -315,13 +316,16 @@
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="alertme()">
+                                    <div class="field">
+                                        <input id="addNodeInput" class="input has-addons" type="text" placeholder="Type in name of node to add to canvas.">
+                                    </div>
+                                    <button class="button is-primary" onclick="addNode()">
                                         <span>Add node</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        ...
+                                        <div id="addNodeResult">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -342,13 +346,13 @@
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="Clear()">
+                                    <button class="button is-primary" onclick="clearCanvas()">
                                         <span>Add node</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        ...
+                                        <div id="clearCanvasResult">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -371,13 +375,13 @@
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="GetPackages()">
-                                        <span>Close file</span>
+                                    <button class="button is-primary" onclick="getPackages()">
+                                        <span>Get packages</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        ...
+                                        <div id="getPackagesResult">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -398,13 +402,16 @@
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="alertme()">
+                                    <div class="field">
+                                        <input id="installPackageInput" class="input has-addons" type="text" placeholder="Type in name of package.">
+                                    </div>
+                                    <button class="button is-primary" onclick="installPackage()">
                                         <span>Install package</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        ...
+                                        <div id="installPackageResult">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -425,20 +432,20 @@
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="RemovePackage()">
+                                    <div class="field">
+                                        <input id="removePackageInput" class="input has-addons" type="text" placeholder="Type in name of package.">
+                                    </div>
+                                    <button class="button is-primary" onclick="removePackage()">
                                         <span>Remove package</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        ...
+                                        <div id="removePackageResult">...</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <button id="clicker" onclick="closefile">get google</button>
-                        <p id="demo">Let AJAX change this text.</p>
                     </div>
                 </div>
             </div>
@@ -449,6 +456,7 @@
         <section class="section">
             <div class="container">
                 <div class="columns is-multiline">
+                    <!-- Features cards -->
                     <div class="column is-one-third">
                         <article class="notification media has-background-white">
                             <figure class="media-left">
@@ -458,9 +466,43 @@
                             </figure>
                             <div class="media-content">
                                 <div class="content">
-                                    <h1 class="title is-size-4">Columns</h1>
+                                    <h1 class="title is-size-4">Workspace</h1>
                                     <p class="is-size-5 subtitle">
-                                        The power of <strong>Flexbox</strong> in a simple interface
+                                        Have complete control over the Dynamo workspace, opening, closing and executing graphs.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="column is-one-third">
+                        <article class="notification has-background-white media">
+                            <figure class="media-left">
+                                <span class="icon has-text-danger">
+                                    <i class="fas fa-lg fa-cube"></i>
+                                </span>
+                            </figure>
+                            <div class="media-content">
+                                <div class="content">
+                                    <h1 class="title is-size-4">Nodes</h1>
+                                    <p class="is-size-5 subtitle">
+                                        Get outputs from specific nodes, add more to the canvas and wire them up.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="column is-one-third">
+                        <article class="notification has-background-white media">
+                            <figure class="media-left">
+                                <span class="icon has-text-danger">
+                                    <i class="fas fa-lg fa-cubes"></i>
+                                </span>
+                            </figure>
+                            <div class="media-content">
+                                <div class="content">
+                                    <h1 class="title is-size-4">Packages</h1>
+                                    <p class="is-size-5 subtitle">
+                                        Manage packages remotely : find out what packages are installed, deploy new ones or remove them.
                                     </p>
                                 </div>
                             </div>
@@ -478,23 +520,6 @@
                                     <h1 class="title is-size-4">Form</h1>
                                     <p class="is-size-5 subtitle">
                                         The indispensable <strong>form controls</strong>, designed for maximum clarity
-                                    </p>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="column is-one-third">
-                        <article class="notification has-background-white media">
-                            <figure class="media-left">
-                                <span class="icon has-text-danger">
-                                    <i class="fas fa-lg fa-cubes"></i>
-                                </span>
-                            </figure>
-                            <div class="media-content">
-                                <div class="content">
-                                    <h1 class="title is-size-4">Components</h1>
-                                    <p class="is-size-5 subtitle">
-                                        Advanced multi-part components with lots of possibilities
                                     </p>
                                 </div>
                             </div>
@@ -534,23 +559,6 @@
                             </div>
                         </article>
                     </div>
-                    <div class="column is-one-third">
-                        <article class="notification has-background-white media">
-                            <figure class="media-left">
-                                <span class="icon has-text-danger">
-                                    <i class="fas fa-lg fa-cube"></i>
-                                </span>
-                            </figure>
-                            <div class="media-content">
-                                <div class="content">
-                                    <h1 class="title is-size-4">Elements</h1>
-                                    <p class="is-size-5 subtitle">
-                                        Essential interface elements that only require a <strong>single CSS class</strong>
-                                    </p>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
                 </div>
             </div>
         </section>
@@ -565,29 +573,28 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script>
-        function alertme() {
-            alert("Hello! I am an alert box!!");
-        }
-
-        function closefile() {
+        function openFile() {
             var xhttp = new XMLHttpRequest();
+            var filename = document.getElementById("openFileInput").value;
+
             xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("demo").innerHTML =
+                console.log("filename : " + filename);
+                if (filename == null) console.log("something was wrong with filename : " + filename);
+
+                if (this.readyState == 4) {
+                    document.getElementById("openFileResult").innerHTML =
                         this.responseText;
                 }
             };
-            xhttp.open("GET", "/Workspace/Close", true);
+            var endpoint = "/Workspace/Open/" + filename + "/";
+            xhttp.open("GET", endpoint, true);
             xhttp.send();
         }
 
         function getOpenFile() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
-                console.log("ready state : " + this.readyState);
-                console.log("status : " + this.status);
-                console.log("HTML before : " + document.getElementById("demo").innerHTML);
-                if (this.readyState == 4 && this.status == 200) {
+                if (this.readyState == 4) {
                     document.getElementById("getOpenFileResult").innerHTML =
                         this.responseText;
                 }
@@ -595,13 +602,134 @@
             xhttp.open("GET", "/Workspace/Current", true);
             xhttp.send();
         }
+
+        function saveFile() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    document.getElementById("saveFileResult").innerHTML =
+                        this.responseText;
+                }
+            };
+            xhttp.open("GET", "/Workspace/Save", true);
+            xhttp.send();
+        }
+
+        function closeFile() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    document.getElementById("closeFileResult").innerHTML =
+                        this.responseText;
+                }
+            };
+            xhttp.open("GET", "/Workspace/Close", true);
+            xhttp.send();
+        }
+
+        function runGraph() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    document.getElementById("runGraphResult").innerHTML =
+                        this.responseText;
+                }
+            };
+            xhttp.open("GET", "/Workspace/Run", true);
+            xhttp.send();
+        }
+
+        function getNodes() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    document.getElementById("getNodesResult").innerHTML =
+                        this.responseText;
+                }
+            };
+            xhttp.open("GET", "/Nodes", true);
+            xhttp.send();
+        }
+
+        function addNode() {
+            var xhttp = new XMLHttpRequest();
+            var node = document.getElementById("addNodeInput").value;
+
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    document.getElementById("addNodeResult").innerHTML +=
+                        this.responseText;
+                }
+            };
+
+            var endpoint = "/Nodes/Add/" + node + "/";
+            xhttp.open("GET", endpoint, true);
+            xhttp.send();
+        }
+
+        function clearCanvas() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    document.getElementById("clearCanvasResult").innerHTML =
+                        this.responseText;
+                }
+            };
+            xhttp.open("GET", "/Nodes/Clear", true);
+            xhttp.send();
+        }
+
+        function getPackages() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    document.getElementById("getPackagesResult").innerHTML =
+                        this.responseText;
+                }
+            };
+            xhttp.open("GET", "/Packages", true);
+            xhttp.send();
+        }
+
+        function installPackage() {
+            var xhttp = new XMLHttpRequest();
+            var package = document.getElementById("installPackageInput").value;
+
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    document.getElementById("installPackageResult").innerHTML =
+                        this.responseText;
+                }
+            };
+
+            var endpoint = "/Packages/Install/" + package + "/";
+            xhttp.open("GET", endpoint, true);
+            xhttp.send();
+        }
+
+        function removePackage() {
+            var xhttp = new XMLHttpRequest();
+            var package = document.getElementById("removePackageInput").value;
+
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    document.getElementById("removePackageResult").innerHTML =
+                        this.responseText;
+                }
+            };
+            var endpoint = "/Packages/Remove/" + package + "/";
+            xhttp.open("GET", endpoint, true);
+            xhttp.send();
+        }
     </script>
     <script>
+        // example AJAX script with JQuery instead of raw JS
         $(document).ready(function () {
             $("#clicker").click(function () {
                 alert("Hello! I am an alert box!!");
                 $.ajax({
-                    url: "www.google.com", success: function (result) {
+                    url: "www.google.com",
+                    success: function (result) {
                         $("#demo").html(result);
                     }
                 });
