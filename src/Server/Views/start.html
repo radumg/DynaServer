@@ -110,14 +110,14 @@
                                         <input class="input has-addons" type="text" placeholder="Paste in filepath here.">
                                     </div>
                                     <div class="field">
-                                        <button class="button is-primary" onclick="alertme()">
+                                        <button class="button is-primary" onclick="openFile()">
                                             <span>Open file</span>
                                         </button>
                                     </div>
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        ...
+                                        <div class="openFileResult">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +205,7 @@
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="SaveFile()">
+                                    <button class="button is-primary" onclick="saveFile()">
                                         <span>Save file</span>
                                     </button></br></br>
                                     <em>Result :</em>
@@ -232,13 +232,13 @@
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="alertme()">
+                                    <button class="button is-primary" onclick="closeFile()">
                                         <span>Close file</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        ...
+                                        <div class="closeFileResult">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -259,13 +259,13 @@
                                 </div>
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
-                                    <button class="button is-primary" onclick="alertme()">
+                                    <button class="button is-primary" onclick="runGroph()">
                                         <span>Run graph</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
                                         <button class="delete"></button>
-                                        ...
+                                        <div class="runGraphResult">...</div>
                                     </div>
                                 </div>
                             </div>
@@ -577,15 +577,18 @@
                         this.responseText;
                 }
             };
-            xhttp.open("GET", "/", true);
+            xhttp.open("GET", "/Workspace/Close", true);
             xhttp.send();
         }
 
         function getOpenFile() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
+                console.log("ready state : " + this.readyState);
+                console.log("status : " + this.status);
+                console.log("HTML before : " + document.getElementById("demo").innerHTML);
                 if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("demo").innerHTML =
+                    document.getElementById("getOpenFileResult").innerHTML =
                         this.responseText;
                 }
             };
