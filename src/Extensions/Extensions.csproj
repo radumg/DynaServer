@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files\Dynamo\Dynamo Core\2\DynamoSandbox.exe</StartProgram>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -22,6 +24,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files\Dynamo\Dynamo Core\2\DynamoSandbox.exe</StartProgram>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -148,26 +152,67 @@
     <Compile Include="UI.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">
       <Project>{36fb1c1c-9864-4ef5-9f69-18c128011dd5}</Project>
       <Name>Server</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>del "C:\Program Files\Dynamo\Dynamo Core\2\extensions\DynamoServer_ExtensionDefinition.xml"
-del "C:\Program Files\Dynamo\Dynamo Core\2\viewExtensions\DynamoServer_ViewExtensionDefinition.xml"
+    <PreBuildEvent>
+      echo ++++++++++++++++++++++++++++++++++++++
+      echo Deleting extension defitions if any :
+      del "C:\Program Files\Dynamo\Dynamo Core\2\extensions\DynamoServer_ExtensionDefinition.xml"
+      del "C:\Program Files\Dynamo\Dynamo Core\2\viewExtensions\DynamoServer_ViewExtensionDefinition.xml"
 </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
-xcopy /y /q "C:\Users\markt\Documents\GitHub\DynamoServer\Extensions\Resources\DynamoServer_ExtensionDefinition.xml" "C:\Users\markt\Documents\GitHub\Dynamo\bin\AnyCPU\Debug\extensions\"
-xcopy /y /q "C:\Users\markt\Documents\GitHub\DynamoServer\Extensions\Resources\DynamoServer_ViewExtensionDefinition.xml" "C:\Users\markt\Documents\GitHub\Dynamo\bin\AnyCPU\Debug\viewExtensions\"
-
-xcopy /y /q "C:\Users\markt\Documents\GitHub\DynamoServer\Extensions\bin\Debug\DynamoServerExtensions.dll" "C:\Users\markt\Documents\GitHub\Dynamo\bin\AnyCPU\Debug\extensions\"
-xcopy /y /q "C:\Users\markt\Documents\GitHub\DynamoServer\Extensions\bin\Debug\DynamoServerExtensions.dll" "C:\Users\markt\Documents\GitHub\Dynamo\bin\AnyCPU\Debug\viewExtensions\"</PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
+  <!--Using AfterBuild Events to copy the extension to the Dynamo packages folder-->
+  <Target Name="AfterBuild">
+    <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++" />
+    <Message Importance="High" Text="Dynamo extension post-build" />
+    <!--Defining folders to copy-->
+    <PropertyGroup>
+      <PackageFolder>$(SolutionDir)..\package</PackageFolder>
+    </PropertyGroup>
+    <ItemGroup>
+      <SourceDlls Include="$(TargetDir)*.dll" />
+      <SourcePdbs Include="$(TargetDir)*.pdb" />
+      <SourcePkg Include="$(ProjectDir)pkg.json" />
+      <SourceExtension Include="$(ProjectDir)Resources\DynamoServer_ExtensionDefinition.xml" />
+      <SourceViewExtension Include="$(ProjectDir)Resources\DynamoServer_ViewExtensionDefinition.xml" />
+      <SourceHtml Include="$(TargetDir)Views\**\*.*" />
+      <PackageFiles Include="$(PackageFolder).\**\*.*"/>
+    </ItemGroup>
+    <!--Copying to Build Folder-->
+    <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++ Assembling to package folder" />
+    <Message Importance="High" Text="SourceDlls = @(SourceDlls)" />
+    <Message Importance="High" Text="SourcePdbs = @(SourcePdbs)" />
+    <Message Importance="High" Text="SourcePkg = @(SourcePkg)" />
+    <Message Importance="High" Text="SourceExtension = @(SourceExtension)" />
+    <Message Importance="High" Text="SourceViewExtension = @(SourceViewExtension)" />
+    <Message Importance="High" Text="SourceHtml = @(SourceHtml)" />
+    <Message Importance="High" Text="PackageFolder = $(PackageFolder)" />
+
+    <Copy SourceFiles="@(SourceDlls)" DestinationFolder="$(PackageFolder)\bin" SkipUnchangedFiles="false"/>
+    <Copy SourceFiles="@(SourcePdbs)" DestinationFolder="$(PackageFolder)\bin" SkipUnchangedFiles="false"/>
+    <Copy SourceFiles="@(SourcePkg)" DestinationFolder="$(PackageFolder)" SkipUnchangedFiles="false"/>
+    <Copy SourceFiles="@(SourceExtension)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false"/>
+    <Copy SourceFiles="@(SourceViewExtension)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(SourceHtml)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false"/>
+    <PropertyGroup>
+      <!--Copy to Dynamo sandbox for testing -->
+      <DeployFolder>$(AppData)\Dynamo\Dynamo Core\2.0\packages\$(SolutionName)</DeployFolder>
+    </PropertyGroup>
+    <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++" />
+    <Message Importance="High" Text="Deployed to $(DeployFolder)" />
+
+    <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(DeployFolder)\%(RecursiveDir)" SkipUnchangedFiles="false" />
+  </Target>
 </Project>

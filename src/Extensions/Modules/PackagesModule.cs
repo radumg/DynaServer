@@ -26,45 +26,29 @@ namespace DynamoServer.Server
         public dynamic GetPackages(dynamic parameters)
         {
             string html = "";
-            List<string> packageNames = new List<string>();
-            int packageCountBefore = 0, packageCountAfter = 0;
-            IEnumerable<IExtension> packages;
+            var packageNames = new List<string>();
+            var uniqueLibs = new HashSet<string>();
 
-            HashSet<string> uniqueLibs = new List<string>();
 
             ServerViewExtension.RunInContext(() =>
             {
-                // TODO : get packages and remove specified one
-
-                #region List Libraries of loaded Nodes
                 var nsm = ServerViewExtension.dynamoViewModel.Model.SearchModel;
                 List<Dynamo.Search.SearchElements.NodeSearchElement> nodes = nsm.SearchEntries.ToList();
 
-                List<string> libs = new List<string>();
-                foreach (var n in nodes)
-                {
-                    var cats = n.Categories.ToList();
-                    if (cats.Count > 0)
-                    {
-                        libs.Add(cats[0]);
-                    }
-                }
+                var libs = nodes
+                    .Where(x => x.Categories.Count > 0)
+                    .Select(x => x.Categories.FirstOrDefault())
+                    .ToList();
 
-                uniqueLibs = libs.Distinct().ToList();
-                uniqueLibs.Sort();
-                #endregion
+                libs.Sort();
+                uniqueLibs = new HashSet<string>(libs);
 
-                packages = ServerViewExtension.dynamoViewModel.Model.ExtensionManager.Extensions;
-                packageCountBefore = packages.Count();
+                packageNames = ServerViewExtension.dynamoViewModel.Model.ExtensionManager.Extensions
+                    .Select(x => x.Name)
+                    .ToList();
+            });
 
-                packageNames = packages.Select(x => x.Name).ToList();
-
-                packageCountAfter = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.Nodes.Count();
-            }
-
-            );
-
-            html = "<h2>Currently installed libraries : </h2></br>" +
+            html = "<h2>Currently installed libraries : </h2>" +
                  "<ul></br>";
 
             foreach (var item in uniqueLibs)
@@ -73,7 +57,7 @@ namespace DynamoServer.Server
             }
             html += "</ul></br>";
 
-            html += "<h2>Currently installed extensions : </h2></br>" +
+            html += "<h2>Currently installed extensions : </h2>" +
                    "<ul></br>";
 
             foreach (var item in packageNames)
@@ -81,6 +65,7 @@ namespace DynamoServer.Server
                 html += "<li>" + item + "</li>";
             }
             html += "</ul></br>";
+            html += "<em>Note : only Extensions are listed above, does not include ViewExtensions.";
 
             return Response.AsText(html, "text/html");
         }
