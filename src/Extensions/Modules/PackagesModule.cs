@@ -48,8 +48,8 @@ namespace DynamoServer.Server
                     .ToList();
             });
 
-            html = "<h2>Currently installed libraries : </h2>" +
-                 "<ul></br>";
+            html = "<h2>Currently installed pacakges : </h2>" +
+                 "<ul>";
 
             foreach (var item in uniqueLibs)
             {
@@ -58,7 +58,7 @@ namespace DynamoServer.Server
             html += "</ul></br>";
 
             html += "<h2>Currently installed extensions : </h2>" +
-                   "<ul></br>";
+                   "<ul>";
 
             foreach (var item in packageNames)
             {
@@ -81,18 +81,24 @@ namespace DynamoServer.Server
             if (string.IsNullOrWhiteSpace(packageName)) return "Supplied package name was invalid or empty.";
 
             string result = "";
+            int packageCountBefore = 0, packageCountAfter = 0;
 
             ServerViewExtension.RunInContext(() =>
             {
                 try
                 {
-                    // TODO : install package
+                    // TODO : implement package install
+                    result = "To be implemented.";
                 }
                 catch (System.Exception e)
                 {
                     result = "Something went wrong, error : " + e.Message;
                 }
             });
+
+            if (packageCountAfter > packageCountBefore) result = $"Installed {packageCountBefore - packageCountAfter} packages from Dynamo.";
+            else result = "Did not install any package to Dynamo.";
+
             return Response.AsText(result, "text/html");
         }
 
@@ -108,7 +114,7 @@ namespace DynamoServer.Server
 
             ServerViewExtension.RunInContext(() =>
             {
-                // TODO : get packages and remove specified one
+                // TODO : implement package removal
             }
             );
 
