@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DynamoServer.Server
+namespace DynaServer.Server
 {
     public class Bootstrapper : DefaultNancyBootstrapper
     {

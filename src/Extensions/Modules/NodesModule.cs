@@ -1,9 +1,9 @@
-﻿using DynamoServer.Extensions;
+﻿using DynaServer.Extensions;
 using Nancy;
 using System;
 using System.Linq;
 
-namespace DynamoServer.Server
+namespace DynaServer.Server
 {
     /// <summary>
     /// Module to handle basic operations with nodes (get, add, remove) on the Dynamo canvas.

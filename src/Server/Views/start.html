@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to Dynamo Server</title>
+    <title>DynaServer</title>
     <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css'>
@@ -18,7 +18,7 @@
                     <div class="container content">
                         <h1 class="title">
                             <i class="is-large fas fa-check-square"></i>
-                            Your Dynamo Server is now running...
+                            DynaServer is now running...
                         </h1>
                         <hr />
                         <h5 class="subtitle">
@@ -27,7 +27,7 @@
                         <!-- Text snippet -->
                         <p>Check out what you can do with it by browsing and testing the endpoints below.</p>
 
-                        <a href="https://github.com/radumg/DynamoServer" target="_blank" class="button is-primary">
+                        <a href="https://github.com/radumg/DynaServer" target="_blank" class="button is-primary">
                             <span class="icon">
                                 <i class="fab fa-github"></i>
                             </span>
@@ -347,7 +347,7 @@
                                 <div class="column">
                                     <h6>Test this endpoint</h6>
                                     <button class="button is-primary" onclick="clearCanvas()">
-                                        <span>Add node</span>
+                                        <span>Clear nodes</span>
                                     </button></br></br>
                                     <em>Result :</em>
                                     <div class="notification">
@@ -721,20 +721,6 @@
             xhttp.open("GET", endpoint, true);
             xhttp.send();
         }
-    </script>
-    <script>
-        // example AJAX script with JQuery instead of raw JS
-        $(document).ready(function () {
-            $("#clicker").click(function () {
-                alert("Hello! I am an alert box!!");
-                $.ajax({
-                    url: "www.google.com",
-                    success: function (result) {
-                        $("#demo").html(result);
-                    }
-                });
-            });
-        });
     </script>
 </body>
 </html>

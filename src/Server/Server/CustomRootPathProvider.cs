@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace DynamoServer.Server
+namespace DynaServer.Server
 {
     public class CustomRootPathProvider : IRootPathProvider
     {
@@ -10,7 +10,7 @@ namespace DynamoServer.Server
         {
             return 
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + 
-                @"\Dynamo\Dynamo Core\2.0\packages\DynamoServer";
+                @"\Dynamo\Dynamo Core\2.0\packages\DynaServer";
         }
     }
 }

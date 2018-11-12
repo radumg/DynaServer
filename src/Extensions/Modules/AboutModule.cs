@@ -1,7 +1,7 @@
 ﻿using Nancy;
 using System.Reflection;
 
-namespace DynamoServer.Server
+namespace DynaServer.Server
 {
     /// <summary>
     /// This module provides details about the currently running DynamoServer and Dynamo itself.

@@ -1,7 +1,7 @@
 ﻿using Nancy;
 using System;
 
-namespace DynamoServer.Server
+namespace DynaServer.Server
 {
     public class IndexModule : NancyModule
     {
