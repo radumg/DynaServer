@@ -14,7 +14,7 @@ namespace DynaServer.Extensions
     public class ServerViewExtension : IViewExtension
     {
         public string UniqueId => "5E85F38F-0A19-4F24-9E18-96845764780C";
-        public string Name => "Dynamo Server View Extension";
+        public string Name => "DynaServer View Extension";
         public string DynamoVersion => dynamoViewModel.Version;
         public string DynamoHostVersion => dynamoViewModel.HostVersion;
 

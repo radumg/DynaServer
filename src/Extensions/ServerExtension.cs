@@ -8,7 +8,7 @@ namespace DynaServer.Extensions
     {
         public string UniqueId => "EA3501CF-64AE-4246-8837-EFF7DF7F7067";
 
-        public string Name => "Dynamo Server Extension";
+        public string Name => "DynaServer Extension";
 
         public void Startup(StartupParams sp) { }
 
