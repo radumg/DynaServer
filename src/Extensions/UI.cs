@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace DynamoServer.Extensions
+namespace DynaServer.Extensions
 {
     public static class UI
     {

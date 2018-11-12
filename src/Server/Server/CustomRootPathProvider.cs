@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace DynamoServer.Server
+namespace DynaServer.Server
 {
     public class CustomRootPathProvider : IRootPathProvider
     {

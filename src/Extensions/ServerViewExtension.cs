@@ -1,7 +1,7 @@
 ﻿using Dynamo.Logging;
 using Dynamo.ViewModels;
 using Dynamo.Wpf.Extensions;
-using DynamoServer.Server;
+using DynaServer.Server;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace DynamoServer.Extensions
+namespace DynaServer.Extensions
 {
     public class ServerViewExtension : IViewExtension
     {
@@ -41,7 +41,7 @@ namespace DynamoServer.Extensions
             Events.RegisterEventHandlers();
 
             // add Dynamo Server menu to Dynamo UI
-            viewLoadedParams.dynamoMenu.Items.Add(DynamoServer.Extensions.UI.DynamoServerMenu);
+            viewLoadedParams.dynamoMenu.Items.Add(DynaServer.Extensions.UI.DynamoServerMenu);
 
             // hold reference to thread so we can call methods from web server thread
             dispatcher = Dispatcher.CurrentDispatcher;

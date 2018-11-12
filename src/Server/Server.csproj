@@ -7,8 +7,8 @@
     <ProjectGuid>{36FB1C1C-9864-4EF5-9F69-18C128011DD5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DynamoServer.Server</RootNamespace>
-    <AssemblyName>DynamoServer</AssemblyName>
+    <RootNamespace>DynaServer.Server</RootNamespace>
+    <AssemblyName>DynaServer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -55,9 +55,6 @@
     <Compile Include="Server\DynamoWebServer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\cheatsheet.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -75,6 +72,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

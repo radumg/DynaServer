@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 
-namespace DynamoServer.Server
+namespace DynaServer.Server
 {
     public class DynamoWebServer : IDisposable
     {

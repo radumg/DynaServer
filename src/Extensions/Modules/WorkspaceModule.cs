@@ -1,10 +1,10 @@
 ﻿using Dynamo.Models;
-using DynamoServer.Extensions;
+using DynaServer.Extensions;
 using Nancy;
 using System;
 using System.IO;
 
-namespace DynamoServer.Server
+namespace DynaServer.Server
 {
     /// <summary>
     /// Module that handles interactions with the Dynamo workspace itself, allowing you to open, save, close, run graphs and more.

@@ -2,7 +2,7 @@
 using System;
 using System.Windows;
 
-namespace DynamoServer.Extensions
+namespace DynaServer.Extensions
 {
     public static class Events
     {
