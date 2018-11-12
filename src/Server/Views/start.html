@@ -586,7 +586,7 @@
                         this.responseText;
                 }
             };
-            var endpoint = "/Workspace/Open/" + filename + "/";
+            var endpoint = "/Workspace/Open/" + encodeURIComponent(filename) + "/";
             xhttp.open("GET", endpoint, true);
             xhttp.send();
         }
