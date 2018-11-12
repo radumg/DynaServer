@@ -60,10 +60,6 @@
     </Content>
     <Content Include="Views\favicon.png" />
     <Content Include="Views\fav_icon.png" />
-    <Content Include="Views\bulma.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Views\tabs.js" />
     <Content Include="Views\start.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

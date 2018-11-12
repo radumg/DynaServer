@@ -10,7 +10,7 @@ namespace DynaServer.Server
         {
             return 
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + 
-                @"\Dynamo\Dynamo Core\2.0\packages\DynamoServer";
+                @"\Dynamo\Dynamo Core\2.0\packages\DynaServer";
         }
     }
 }

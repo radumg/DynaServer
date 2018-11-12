@@ -17,7 +17,7 @@ namespace DynaServer.Extensions
         static UI()
         {
             // let's now create a completely top-level new menu item
-            DynamoServerMenu = new MenuItem { Header = "Dynamo Server" };
+            DynamoServerMenu = new MenuItem { Header = "DynaServer" };
 
             // and now we add a new sub-menu item that says hello when clicked
             StartServerMenuItem = new MenuItem { Header = "Start Server" };
