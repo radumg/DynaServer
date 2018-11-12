@@ -7,8 +7,8 @@
     <ProjectGuid>{528A5658-2861-4727-BDC8-C3CDB60C3601}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DynamoServer.Extensions</RootNamespace>
-    <AssemblyName>DynamoServerExtensions</AssemblyName>
+    <RootNamespace>DynaServer.Extensions</RootNamespace>
+    <AssemblyName>DynaServerExtensions</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -159,14 +159,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="pkg.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\DynaServer_ExtensionDefinition.xml" />
+    <Content Include="Resources\DynaServer_ViewExtensionDefinition.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
       echo ++++++++++++++++++++++++++++++++++++++
       echo Deleting extension defitions if any :
-      del "C:\Program Files\Dynamo\Dynamo Core\2\extensions\DynamoServer_ExtensionDefinition.xml"
-      del "C:\Program Files\Dynamo\Dynamo Core\2\viewExtensions\DynamoServer_ViewExtensionDefinition.xml"
+      del "C:\Program Files\Dynamo\Dynamo Core\2\extensions\DynaServer_ExtensionDefinition.xml"
+      del "C:\Program Files\Dynamo\Dynamo Core\2\viewExtensions\DynaServer_ViewExtensionDefinition.xml"
 </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
@@ -185,10 +190,10 @@
       <SourceDlls Include="$(TargetDir)*.dll" />
       <SourcePdbs Include="$(TargetDir)*.pdb" />
       <SourcePkg Include="$(ProjectDir)pkg.json" />
-      <SourceExtension Include="$(ProjectDir)Resources\DynamoServer_ExtensionDefinition.xml" />
-      <SourceViewExtension Include="$(ProjectDir)Resources\DynamoServer_ViewExtensionDefinition.xml" />
+      <SourceExtension Include="$(ProjectDir)Resources\DynaServer_ExtensionDefinition.xml" />
+      <SourceViewExtension Include="$(ProjectDir)Resources\DynaServer_ViewExtensionDefinition.xml" />
       <SourceHtml Include="$(TargetDir)Views\**\*.*" />
-      <PackageFiles Include="$(PackageFolder).\**\*.*"/>
+      <PackageFiles Include="$(PackageFolder).\**\*.*" />
     </ItemGroup>
     <!--Copying to Build Folder-->
     <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++ Assembling to package folder" />
@@ -199,21 +204,19 @@
     <Message Importance="High" Text="SourceViewExtension = @(SourceViewExtension)" />
     <Message Importance="High" Text="SourceHtml = @(SourceHtml)" />
     <Message Importance="High" Text="PackageFolder = $(PackageFolder)" />
-
-    <Copy SourceFiles="@(SourceDlls)" DestinationFolder="$(PackageFolder)\bin" SkipUnchangedFiles="false"/>
-    <Copy SourceFiles="@(SourcePdbs)" DestinationFolder="$(PackageFolder)\bin" SkipUnchangedFiles="false"/>
-    <Copy SourceFiles="@(SourcePkg)" DestinationFolder="$(PackageFolder)" SkipUnchangedFiles="false"/>
-    <Copy SourceFiles="@(SourceExtension)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false"/>
+    <Copy SourceFiles="@(SourceDlls)" DestinationFolder="$(PackageFolder)\bin" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(SourcePdbs)" DestinationFolder="$(PackageFolder)\bin" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(SourcePkg)" DestinationFolder="$(PackageFolder)" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(SourceExtension)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false" />
     <Copy SourceFiles="@(SourceViewExtension)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false" />
-    <Copy SourceFiles="@(SourceHtml)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false"/>
+    <Copy SourceFiles="@(SourceHtml)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false" />
     <PropertyGroup>
       <!--Copy to Dynamo sandbox for testing -->
       <DeployFolder>$(AppData)\Dynamo\Dynamo Core\2.0\packages\$(SolutionName)</DeployFolder>
     </PropertyGroup>
     <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++" />
     <Message Importance="High" Text="Deployed to $(DeployFolder)" />
-    
-    <MakeDir Directories="$(DeployFolder)"/>
+    <MakeDir Directories="$(DeployFolder)" />
     <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(DeployFolder)\%(RecursiveDir)" SkipUnchangedFiles="false" />
   </Target>
 </Project>
