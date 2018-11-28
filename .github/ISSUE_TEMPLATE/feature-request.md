@@ -18,4 +18,7 @@ about: Propose new or improving functionality in DynamoServer
 
 ## Are you ready to help build this feature ?
 
-(Fill in here YES or NO if you can help implement this feature.)
+Check YES or NO here if you can help implement this feature.
+
+- [ ] Yes
+- [ ] No
