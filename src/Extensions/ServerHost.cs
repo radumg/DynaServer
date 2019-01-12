@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -101,6 +102,11 @@ namespace DynaServer.Extensions
             throw new NotImplementedException();
         }
 
+        public static void RunInDynamoUIContext(Action action)
+        {
+            dispatcher.Invoke(action);
+        }
+
         #endregion
 
         public static async Task StartServerAsync()
@@ -134,14 +140,14 @@ namespace DynaServer.Extensions
             // log results
             var confirmation = Server.IsRunning == false ? "Stopped ok" : "Something went wrong, server is still running.";
             confirmation = $"[ {DateTime.Now} ] : " + confirmation;
-            ServerViewExtension.DynamoLogger.LogNotification("ServerViewExtension", "Dynamo Server STOP", message, null);
+            DynamoLogger.LogNotification("DynaServer", "Dynamo Server STOP", message, null);
         }
 
         public static string GetServerStatus()
         {
             var running = Server.IsRunning ? $"RUNNING on machine {Environment.MachineName}" : "NOT RUNNING";
             var message = $"[ {DateTime.Now} ] : Server is {running}";
-            ServerViewExtension.DynamoLogger.Log(message);
+            DynamoLogger.Log(message);
 
             return message;
         }
@@ -149,15 +155,9 @@ namespace DynaServer.Extensions
         public async static void Shutdown()
         {
             await StopServerAsync();
-            Events.UnregisterEventHandlers();
         }
 
         #region Utilities
-
-        public static void RunInContext(Action action)
-        {
-            dispatcher.Invoke(action);
-        }
 
         private static Task<int> RunProcessAsync(string fileName)
         {
