@@ -4,8 +4,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Threading;
+using Dynamo.Extensions;
+using Dynamo.Graph.Nodes.CustomNodes;
+using Dynamo.Graph.Workspaces;
+using Dynamo.Interfaces;
+using Dynamo.Library;
 using Dynamo.Logging;
+using Dynamo.Models;
 using Dynamo.ViewModels;
 using Dynamo.Wpf.Extensions;
 using DynaServer.Server;
@@ -14,42 +21,87 @@ namespace DynaServer.Extensions
 {
     public static class ServerHost
     {
+        // Dynamo Model properties
+        private static ReadyParams dynamoModelReadyParams = null;
+        internal static IPreferences DynamoPreferences = null;
+        internal static IPathManager DynamoPathManager = null;
+        internal static ILibraryLoader DynamoLibraryLoader = null;
+        internal static ICustomNodeManager DynamoCustomNodeManager = null;
+        internal static IWorkspaceModel DynamoCurrentWorkspaceModel = null;
+        internal static ICommandExecutive DynamoCommandExecutive = null;
+        public static bool DynamoModelAvailable = false;
+
+        // Dynamo ViewModel properties
         private static ViewLoadedParams dynamoViewLoadedParams = null;
-        internal static DynamoViewModel dynamoViewModel = null;
+        private static Dispatcher dispatcher=null;
+        internal static DynamoModel DynamoModel;
+        internal static Menu DynamoMenu = null;
+        internal static DynamoViewModel DynamoViewModel = null;
         internal static DynamoLogger DynamoLogger = null;
-        internal static Dispatcher dispatcher;
-        public static string DynamoVersion => dynamoViewModel.Version;
-        public static string DynamoHostVersion => dynamoViewModel.HostVersion;
+        internal static IExtensionManager DynamoExtensionManager = null;
+        public static string DynamoVersion => DynamoViewModel.Version;
+        public static string DynamoHostVersion => DynamoViewModel.HostVersion;
+        public static bool DynamoViewModelAvailable = false;
 
+        // Dynamo Server
         internal static DynamoWebServer Server = null;
-
 
         static ServerHost()
         {
             if (Server == null) Server = new DynamoWebServer();
         }
 
-        public static void OnViewModelStartup()
+        #region Dynamo headless
+
+        public static void OnModelStartup(StartupParams sp)
         {
-            DynamoLogger = dynamoViewModel.Model.Logger;
+            DynamoPreferences = sp.Preferences;
+            DynamoPathManager = sp.PathManager;
+            DynamoLibraryLoader = sp.LibraryLoader;
+            DynamoCustomNodeManager = sp.CustomNodeManager;
+        }
+
+        public static void OnModelReady(ReadyParams rp)
+        {
+            dynamoModelReadyParams = rp;
+            DynamoCurrentWorkspaceModel = rp.CurrentWorkspaceModel;
+            DynamoCommandExecutive = rp.CommandExecutive;
+            DynamoModelAvailable = true;
+        }
+
+        #endregion
+
+        #region Dynamo with User Interface
+
+        public static void OnViewModelStartup(ViewStartupParams vsp)
+        {
+            DynamoExtensionManager = vsp.ExtensionManager;
         }
 
         public static void OnViewModelReady(ViewLoadedParams viewModelParams, Dispatcher viewModelDispatcher)
         {
             // hold a reference to the Dynamo params to be used later
-            if (dynamoViewLoadedParams == null) dynamoViewLoadedParams = viewModelParams;
-            dynamoViewModel = dynamoViewLoadedParams.DynamoWindow.DataContext as DynamoViewModel;
-
-            Events.RegisterEventHandlers();
+            dynamoViewLoadedParams = viewModelParams;
+            DynamoViewModel = dynamoViewLoadedParams.DynamoWindow.DataContext as DynamoViewModel;
+            DynamoModel = DynamoViewModel.Model;
+            DynamoLogger = DynamoViewModel.Model.Logger;
 
             // add Dynamo Server menu to Dynamo UI
-            ServerHost.dynamoViewLoadedParams.dynamoMenu.Items.Add(DynaServer.Extensions.UI.DynamoServerMenu);
+            DynamoMenu = dynamoViewLoadedParams.dynamoMenu;
+            DynamoMenu.Items.Add(UI.DynamoServerMenu);
 
-            // hold reference to thread so we can call methods from web server thread
+            // hold reference to thread so we can execute on same thread as Dynamo UI
             ServerHost.dispatcher = Dispatcher.CurrentDispatcher;
 
-
+            DynamoViewModelAvailable = true;
         }
+
+        internal static void OnViewShutdown()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
 
         public static async Task StartServerAsync()
         {
@@ -64,7 +116,7 @@ namespace DynaServer.Extensions
             // log results
             var confirmation = Server.IsRunning == true ? "Started ok" : "Something went wrong, server did not start ok.";
             confirmation = $"[ {DateTime.Now} ] : " + confirmation + ", in " + watch.ElapsedMilliseconds + "ms";
-            ServerViewExtension.DynamoLogger.LogNotification("ServerViewExtension", "Dynamo Server START", message, confirmation);
+            DynamoLogger.LogNotification("DynaServer", "Dynamo Server START", message, confirmation);
         }
 
         public static async Task StopServerAsync()
