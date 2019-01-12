@@ -33,8 +33,6 @@ namespace DynaServer.Extensions
 
         public void Loaded(ViewLoadedParams vlp)
         {
-            MessageBox.Show($"[ {DateTime.Now} ] : {this.Name} is ready!");
-
             // hold a reference to the Dynamo params to be used later
             if (viewLoadedParams == null) viewLoadedParams = vlp;
 

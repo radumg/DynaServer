@@ -46,7 +46,7 @@ namespace DynaServer.Server
 
                     if (nodeCountDiff < 1) result = $"Could not add your {node} node to canvas.";
                     else if (nodeCountDiff == 1) result = $"Added {node} node to the canvas.";
-                    else throw new Exception($"Added {nodeCountDiff} nodes to the canvas.");
+                    else throw new Exception($"Added {nodeCountDiff} nodes to the canvas, expected was 1.");
                 }
                 catch (System.Exception e)
                 {
