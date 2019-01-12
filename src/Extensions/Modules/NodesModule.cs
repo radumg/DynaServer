@@ -30,16 +30,16 @@ namespace DynaServer.Server
             string result = "";
             var command = new Dynamo.Models.DynamoModel.CreateNodeCommand(Guid.NewGuid().ToString(), node, 100, 100, true, false);
             var nodes = "";
-            ServerViewExtension.RunInContext(() =>
+            ServerHost.RunInDynamoUIContext(() =>
             {
                 try
                 {
-                    int countBefore = ServerViewExtension.dynamoViewModel.Model.CurrentWorkspace.Nodes.Count();
+                    int countBefore = ServerHost.DynamoModel.CurrentWorkspace.Nodes.Count();
 
-                    ServerViewExtension.dynamoViewModel.Model.ExecuteCommand(command);
-                    int countAfter = ServerViewExtension.dynamoViewModel.Model.CurrentWorkspace.Nodes.Count();
+                    ServerHost.DynamoModel.ExecuteCommand(command);
+                    int countAfter = ServerHost.DynamoModel.CurrentWorkspace.Nodes.Count();
 
-                    var n = ServerViewExtension.dynamoViewModel.Model.CurrentWorkspace.Nodes.Select(x => "<li>" + x.Name).ToArray();
+                    var n = ServerHost.DynamoModel.CurrentWorkspace.Nodes.Select(x => "<li>" + x.Name).ToArray();
                     nodes = string.Join("</li> ", n);
 
                     var nodeCountDiff = countAfter - countBefore;
@@ -63,7 +63,7 @@ namespace DynaServer.Server
         /// <returns>HTML result summary.</returns>
         public dynamic GetNodes(dynamic parameters)
         {
-            var allNodes = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.Nodes.Select(x => x.Name).ToList();
+            var allNodes = ServerHost.DynamoCurrentWorkspaceModel.Nodes.Select(x => x.Name).ToList();
 
             string html = "" +
                 "<h2>Current workspace nodes : </h2></br>" +
@@ -88,14 +88,11 @@ namespace DynaServer.Server
             string html = "";
             int nodeCountBefore = 0, nodeCountAfter = 0;
 
-            ServerViewExtension.RunInContext(() =>
+            ServerHost.RunInDynamoUIContext(() =>
             {
-                nodeCountBefore = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.Nodes.Count();
-
-                var vm = ServerViewExtension.dynamoViewModel;
-                vm.Model.ClearCurrentWorkspace();
-
-                nodeCountAfter = ServerViewExtension.viewLoadedParams.CurrentWorkspaceModel.Nodes.Count();
+                nodeCountBefore = ServerHost.DynamoCurrentWorkspaceModel.Nodes.Count();
+                ServerHost.DynamoModel.ClearCurrentWorkspace();
+                nodeCountAfter = ServerHost.DynamoCurrentWorkspaceModel.Nodes.Count();
             }
             );
 

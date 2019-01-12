@@ -30,9 +30,9 @@ namespace DynaServer.Server
             var uniqueLibs = new HashSet<string>();
 
 
-            ServerViewExtension.RunInContext(() =>
+            ServerHost.RunInDynamoUIContext(() =>
             {
-                var nsm = ServerViewExtension.dynamoViewModel.Model.SearchModel;
+                var nsm = ServerHost.DynamoModel.SearchModel;
                 List<Dynamo.Search.SearchElements.NodeSearchElement> nodes = nsm.SearchEntries.ToList();
 
                 var libs = nodes
@@ -43,7 +43,7 @@ namespace DynaServer.Server
                 libs.Sort();
                 uniqueLibs = new HashSet<string>(libs);
 
-                packageNames = ServerViewExtension.dynamoViewModel.Model.ExtensionManager.Extensions
+                packageNames = ServerHost.DynamoModel.ExtensionManager.Extensions
                     .Select(x => x.Name)
                     .ToList();
             });
@@ -83,7 +83,7 @@ namespace DynaServer.Server
             string result = "";
             int packageCountBefore = 0, packageCountAfter = 0;
 
-            ServerViewExtension.RunInContext(() =>
+            ServerHost.RunInDynamoUIContext(() =>
             {
                 try
                 {
@@ -112,7 +112,7 @@ namespace DynaServer.Server
             string html = "";
             int packageCountBefore = 0, packageCountAfter = 0;
 
-            ServerViewExtension.RunInContext(() =>
+            ServerHost.RunInDynamoUIContext(() =>
             {
                 // TODO : implement package removal
             }
