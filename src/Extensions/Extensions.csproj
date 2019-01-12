@@ -131,6 +131,7 @@
     <Compile Include="Modules\PackagesModule.cs" />
     <Compile Include="Modules\NodesModule.cs" />
     <Compile Include="Modules\WorkspaceModule.cs" />
+    <Compile Include="ServerHost.cs" />
     <Compile Include="ServerExtension.cs" />
     <Compile Include="ServerViewExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
