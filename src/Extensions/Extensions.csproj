@@ -26,6 +26,7 @@
     <WarningLevel>4</WarningLevel>
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files\Dynamo\Dynamo Core\2\DynamoSandbox.exe</StartProgram>
+    <DocumentationFile>bin\Debug\DynaServerExtensions.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,39 +39,51 @@
   <ItemGroup>
     <Reference Include="CoreNodeModels, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.WpfUILibrary.2.0.2.6986\lib\net45\CoreNodeModels.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CoreNodeModelsWpf, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.WpfUILibrary.2.0.2.6986\lib\net45\CoreNodeModelsWpf.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DesignScriptBuiltin, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.Core.2.0.2.6986\lib\net45\DesignScriptBuiltin.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DSIronPython, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.Core.2.0.2.6986\lib\net45\DSIronPython.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DynamoApplications, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.Core.2.0.2.6986\lib\net45\DynamoApplications.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DynamoCore, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.Core.2.0.2.6986\lib\net45\DynamoCore.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DynamoCoreWpf, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.WpfUILibrary.2.0.2.6986\lib\net45\DynamoCoreWpf.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DynamoInstallDetective, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.Core.2.0.2.6986\lib\net45\DynamoInstallDetective.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DynamoServices, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.DynamoServices.2.0.2.6986\lib\net45\DynamoServices.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DynamoShapeManager, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.Core.2.0.2.6986\lib\net45\DynamoShapeManager.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DynamoUnits, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.ZeroTouchLibrary.2.0.2.6986\lib\net45\DynamoUnits.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DynamoUtilities, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.Core.2.0.2.6986\lib\net45\DynamoUtilities.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
@@ -90,10 +103,11 @@
     </Reference>
     <Reference Include="Nancy, Version=1.4.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nancy.1.4.5\lib\net40\Nancy.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -103,9 +117,11 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="ProtoCore, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.Core.2.0.2.6986\lib\net45\ProtoCore.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ProtoGeometry, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.ZeroTouchLibrary.2.0.2.6986\lib\net45\ProtoGeometry.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -122,6 +138,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="VMDataBridge, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamoVisualProgramming.Core.2.0.2.6986\lib\net45\VMDataBridge.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -141,11 +158,14 @@
     <ProjectReference Include="..\Server\Server.csproj">
       <Project>{36fb1c1c-9864-4ef5-9f69-18c128011dd5}</Project>
       <Name>Server</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="pkg.json" />
+    <None Include="pkg.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\DynaServer_ExtensionDefinition.xml" />
@@ -154,11 +174,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
-      echo ++++++++++++++++++++++++++++++++++++++
-      echo Deleting extension defitions if any :
-      del "C:\Program Files\Dynamo\Dynamo Core\2\extensions\DynaServer_ExtensionDefinition.xml"
-      del "C:\Program Files\Dynamo\Dynamo Core\2\viewExtensions\DynaServer_ViewExtensionDefinition.xml"
-</PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
@@ -167,42 +183,53 @@
   <!--Using AfterBuild Events to copy the extension to the Dynamo packages folder-->
   <Target Name="AfterBuild">
     <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++" />
-    <Message Importance="High" Text="Dynamo extension post-build" />
+    <Message Importance="High" Text="DynaServer extension post-build" />
     <!--Defining folders to copy-->
     <PropertyGroup>
       <PackageFolder>$(SolutionDir)..\package</PackageFolder>
+      <ServerFolder>$(SolutionDir)\Server\bin\$(Configuration)</ServerFolder>
+      <PackageDeployFolder>$(AppData)\Dynamo\Dynamo Core\2.0\packages\$(SolutionName)</PackageDeployFolder>  
     </PropertyGroup>
     <ItemGroup>
       <SourceDlls Include="$(TargetDir)*.dll" />
-      <SourcePdbs Include="$(TargetDir)*.pdb" />
       <SourcePkg Include="$(ProjectDir)pkg.json" />
       <SourceExtension Include="$(ProjectDir)Resources\DynaServer_ExtensionDefinition.xml" />
       <SourceViewExtension Include="$(ProjectDir)Resources\DynaServer_ViewExtensionDefinition.xml" />
-      <SourceHtml Include="$(TargetDir)Views\**\*.*" />
-      <PackageFiles Include="$(PackageFolder).\**\*.*" />
+      <ServerBinFiles Include="$(ServerFolder).\**\*.dll" />
+      <ServerExtraFiles Include="$(ServerFolder)\Views\**\*.*" />
     </ItemGroup>
+
+    <!--Clear package in Dynamo 2.0 install -->
+    <Message Importance="High" Text="" />
+    <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++ Deleting DynaServer package" />
+    <Message Importance="High" Text="PackageDeployFolder = $(PackageDeployFolder)" />
+    <RemoveDir Directories="$(PackageDeployFolder)" /> 
+
     <!--Copying to Build Folder-->
+    <Message Importance="High" Text="" />
     <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++ Assembling to package folder" />
+    <Message Importance="High" Text="PackageFolder target = $(PackageFolder)" />
     <Message Importance="High" Text="SourceDlls = @(SourceDlls)" />
-    <Message Importance="High" Text="SourcePdbs = @(SourcePdbs)" />
     <Message Importance="High" Text="SourcePkg = @(SourcePkg)" />
     <Message Importance="High" Text="SourceExtension = @(SourceExtension)" />
     <Message Importance="High" Text="SourceViewExtension = @(SourceViewExtension)" />
-    <Message Importance="High" Text="SourceHtml = @(SourceHtml)" />
-    <Message Importance="High" Text="PackageFolder = $(PackageFolder)" />
+    <Message Importance="High" Text="ServerBinFiles = @(ServerBinFiles)" />
+    <Message Importance="High" Text="ServerExtraFiles = @(ServerExtraFiles)" />
     <Copy SourceFiles="@(SourceDlls)" DestinationFolder="$(PackageFolder)\bin" SkipUnchangedFiles="false" />
-    <Copy SourceFiles="@(SourcePdbs)" DestinationFolder="$(PackageFolder)\bin" SkipUnchangedFiles="false" />
     <Copy SourceFiles="@(SourcePkg)" DestinationFolder="$(PackageFolder)" SkipUnchangedFiles="false" />
     <Copy SourceFiles="@(SourceExtension)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false" />
     <Copy SourceFiles="@(SourceViewExtension)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false" />
-    <Copy SourceFiles="@(SourceHtml)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false" />
-    <PropertyGroup>
-      <!--Copy to Dynamo sandbox for testing -->
-      <DeployFolder>$(AppData)\Dynamo\Dynamo Core\2.0\packages\$(SolutionName)</DeployFolder>
-    </PropertyGroup>
-    <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++" />
-    <Message Importance="High" Text="Deployed to $(DeployFolder)" />
-    <MakeDir Directories="$(DeployFolder)" />
-    <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(DeployFolder)\%(RecursiveDir)" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(ServerBinFiles)" DestinationFolder="$(PackageFolder)\bin" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(ServerExtraFiles)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false" />
+
+    <!-- Deploy to Dynamo Core 2.0 for testing -->
+    <ItemGroup>
+      <PackageFiles Include="$(PackageFolder).\**\*.*" />
+    </ItemGroup>
+    <Message Importance="High" Text="" />
+    <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++ Deploying to Dynamo Core 2.0" />
+    <Message Importance="High" Text="Deployed to $(PackageDeployFolder)" />
+    <MakeDir Directories="$(PackageDeployFolder)" />
+    <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(PackageDeployFolder)\%(RecursiveDir)" SkipUnchangedFiles="false" />
   </Target>
 </Project>
