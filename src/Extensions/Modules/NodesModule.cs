@@ -28,12 +28,13 @@ namespace DynaServer.Server
             if (string.IsNullOrWhiteSpace(node)) return "Supplied node was empty";
 
             string result = "";
-            var command = new Dynamo.Models.DynamoModel.CreateNodeCommand(Guid.NewGuid().ToString(), node, 100, 100, true, false);
-            var nodes = "";
-            ServerHost.RunInDynamoUIContext(() =>
+            ServerHost.RunOnDynamoViewModel(() =>
             {
                 try
                 {
+                    var command = new Dynamo.Models.DynamoModel.CreateNodeCommand(Guid.NewGuid().ToString(), node, 100, 100, true, false);
+                    var nodes = "";
+
                     int countBefore = ServerHost.DynamoModel.CurrentWorkspace.Nodes.Count();
 
                     ServerHost.DynamoModel.ExecuteCommand(command);
@@ -88,7 +89,7 @@ namespace DynaServer.Server
             string html = "";
             int nodeCountBefore = 0, nodeCountAfter = 0;
 
-            ServerHost.RunInDynamoUIContext(() =>
+            ServerHost.RunOnDynamoViewModel(() =>
             {
                 nodeCountBefore = ServerHost.DynamoCurrentWorkspaceModel.Nodes.Count();
                 ServerHost.DynamoModel.ClearCurrentWorkspace();

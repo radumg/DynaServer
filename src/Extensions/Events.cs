@@ -1,4 +1,6 @@
 ﻿using Dynamo.Graph.Nodes;
+using Dynamo.ViewModels;
+using Dynamo.Wpf.Extensions;
 using System;
 using System.Windows;
 

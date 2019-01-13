@@ -30,7 +30,7 @@ namespace DynaServer.Server
             var uniqueLibs = new HashSet<string>();
 
 
-            ServerHost.RunInDynamoUIContext(() =>
+            ServerHost.RunOnDynamoViewModel(() =>
             {
                 var nsm = ServerHost.DynamoModel.SearchModel;
                 List<Dynamo.Search.SearchElements.NodeSearchElement> nodes = nsm.SearchEntries.ToList();
@@ -83,7 +83,7 @@ namespace DynaServer.Server
             string result = "";
             int packageCountBefore = 0, packageCountAfter = 0;
 
-            ServerHost.RunInDynamoUIContext(() =>
+            ServerHost.RunOnDynamoViewModel(() =>
             {
                 try
                 {
@@ -112,7 +112,7 @@ namespace DynaServer.Server
             string html = "";
             int packageCountBefore = 0, packageCountAfter = 0;
 
-            ServerHost.RunInDynamoUIContext(() =>
+            ServerHost.RunOnDynamoViewModel(() =>
             {
                 // TODO : implement package removal
             }

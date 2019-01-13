@@ -39,13 +39,13 @@ namespace DynaServer.Server
             if (!file.ToUpper().EndsWith(DYNAMO_FILE_EXTENSION)) return "File does not have the correct extension (.DYN)";
             if (!File.Exists(file)) return 404;
 
-            ServerHost.RunInDynamoUIContext(() =>
+            ServerHost.RunOnDynamoViewModel(() =>
             {
-                var vm = ServerHost.DynamoViewModel;
+                //var vm = ServerHost.DynamoViewModel;
 
-                vm.CloseHomeWorkspaceCommand.Execute(null);
-                vm.OpenCommand.Execute(file);
-                result = ServerHost.DynamoCurrentWorkspaceModel.FileName;
+                //vm.CloseHomeWorkspaceCommand.Execute(null);
+                //vm.OpenCommand.Execute(file);
+                //result = ServerHost.DynamoCurrentWorkspaceModel.FileName;
             });
 
             return Response.AsText("Opened file : " + result, "text/html");
@@ -60,7 +60,7 @@ namespace DynaServer.Server
         {
             string filePath = "";
             string fileName = "";
-            ServerHost.RunInDynamoUIContext(() =>
+            ServerHost.RunOnDynamoViewModel(() =>
             {
                 filePath = ServerHost.DynamoCurrentWorkspaceModel.FileName;
                 if (string.IsNullOrWhiteSpace(filePath))
@@ -89,7 +89,7 @@ namespace DynaServer.Server
         public dynamic UploadFile(dynamic parameters)
         {
             string file = "";
-            ServerHost.RunInDynamoUIContext(() =>
+            ServerHost.RunOnDynamoViewModel(() =>
             {
                 file = ServerHost.DynamoCurrentWorkspaceModel.FileName;
             }
@@ -110,14 +110,14 @@ namespace DynaServer.Server
             string file = "";
             string result = "";
 
-            ServerHost.RunInDynamoUIContext(() =>
+            ServerHost.RunOnDynamoViewModel(() =>
             {
                 file = ServerHost.DynamoCurrentWorkspaceModel.FileName;
                 if (string.IsNullOrWhiteSpace(file)) result = "No file is open, did not save anything.";
                 else
                 {
-                    ServerHost.DynamoLogger.Log("Saving " + file);
-                    ServerHost.DynamoViewModel.SaveCommand.Execute(null);
+                    //ServerHost.DynamoLogger.Log("Saving " + file);
+                    //ServerHost.DynamoViewModel.SaveCommand.Execute(null);
                     result = "Successfully Saved file : " + file;
                 }
             }
@@ -135,11 +135,11 @@ namespace DynaServer.Server
         {
             string file = "";
 
-            ServerHost.RunInDynamoUIContext(() =>
+            ServerHost.RunOnDynamoViewModel(() =>
             {
                 file = ServerHost.DynamoCurrentWorkspaceModel.FileName;
-                ServerHost.DynamoLogger.Log("Closed " + file);
-                ServerHost.DynamoViewModel.CloseHomeWorkspaceCommand.Execute(null);
+                //ServerHost.DynamoLogger.Log("Closed " + file);
+                //ServerHost.DynamoViewModel.CloseHomeWorkspaceCommand.Execute(null);
             }
             );
 
@@ -153,11 +153,11 @@ namespace DynaServer.Server
         /// <returns>HTML result summary.</returns>
         public dynamic RunGraph(dynamic parameters)
         {
-            ServerHost.RunInDynamoUIContext(() =>
+            ServerHost.RunOnDynamoViewModel(() =>
             {
-                var vm = ServerHost.DynamoViewModel;
-                vm.CurrentSpaceViewModel.RunSettingsViewModel.Model.RunType = RunType.Manual;
-                vm.Model.ForceRun();
+                //var vm = ServerHost.DynamoViewModel;
+                //vm.CurrentSpaceViewModel.RunSettingsViewModel.Model.RunType = RunType.Manual;
+                //vm.Model.ForceRun();
             });
 
             return "ran";
