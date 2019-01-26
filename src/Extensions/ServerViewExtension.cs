@@ -4,9 +4,8 @@ using Dynamo.Wpf.Extensions;
 using DynaServer.Server;
 using System;
 using System.Diagnostics;
-using System.Threading;
+using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Threading;
 
 namespace DynaServer.Extensions
@@ -63,14 +62,10 @@ namespace DynaServer.Extensions
 
         public static async Task StopServerAsync()
         {
-            // first open the shutting down server page.
-            // yes, i prioritise UX over speed here, deal with it.
-            await Task.Run(() => Process.Start(Server.UrlBase + "/stop"));
-            Thread.Sleep(3000);
-
             var message = $"[ {DateTime.Now} ] : Stopping server on machine {Environment.MachineName}";
 
-            // stop server and continue execution
+            // manually open the stop webpage from file since the server will likely be stopped before endpoint response
+            Process.Start(Path.Combine(Server.RootPath, "extra/stop.html"));
             await Task.Run(() => Server.Stop());
 
             // log results

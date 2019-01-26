@@ -11,10 +11,14 @@ namespace DynaServer.Server
     public class Bootstrapper : DefaultNancyBootstrapper
     {
         private const string _password = "dynamo";
+        internal IRootPathProvider rootPathProvider;
 
         protected override IRootPathProvider RootPathProvider
         {
-            get { return new CustomRootPathProvider(); }
+            get {
+                rootPathProvider = new CustomRootPathProvider();
+                return rootPathProvider;
+            }
         }
 
         protected override DiagnosticsConfiguration DiagnosticsConfiguration

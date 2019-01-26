@@ -3,19 +3,11 @@ using System;
 
 namespace DynaServer.Server
 {
-    public class IndexModule : NancyModule
+    public class TestModule : NancyModule
     {
-        public IndexModule() : base("/")
+        public TestModule() : base("/")
         {
-            Get["/"] = x =>
-            {
-                return Response.AsFile("extra/start.html", "text/html");
-            };
-
-            Get["/stop"] = x =>
-            {
-                return Response.AsFile("extra/stop.html", "text/html");
-            };
+            Get["/test"] = x => { return "Ok"; };
 
             Get["/time"] = x => { return "Hello, it is now " + DateTime.Now.ToLongTimeString(); };
 
