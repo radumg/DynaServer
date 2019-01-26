@@ -11,8 +11,10 @@ namespace DynaServer.Server
 
         private NancyHost server;
         private HostConfiguration serverConfig;
+
         internal static DynamoWebServer CurrentInstance;
 
+        public string RootPath { get; private set; }
         public string UrlBase { get; private set; }
         public bool IsRunning { get; private set; }
         public bool FailedToStart { get; private set; }
@@ -32,6 +34,7 @@ namespace DynaServer.Server
             IsRunning = false;
             FailedToStart = false;
             CurrentInstance = this;
+            RootPath = bootstrapper.rootPathProvider.GetRootPath();
         }
 
         public DynamoWebServer(string urlbase) : base()
