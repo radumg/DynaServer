@@ -1,6 +1,7 @@
 ﻿using Nancy.Hosting.Self;
 using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace DynaServer.Server
 {
@@ -10,6 +11,7 @@ namespace DynaServer.Server
 
         private NancyHost server;
         private HostConfiguration serverConfig;
+        internal static DynamoWebServer CurrentInstance;
 
         public string UrlBase { get; private set; }
         public bool IsRunning { get; private set; }
@@ -29,6 +31,7 @@ namespace DynaServer.Server
             // set initial state
             IsRunning = false;
             FailedToStart = false;
+            CurrentInstance = this;
         }
 
         public DynamoWebServer(string urlbase) : base()
@@ -43,6 +46,8 @@ namespace DynaServer.Server
             {
                 server.Start();
                 IsRunning = true;
+
+                // open the server base url in browser
                 Process.Start(UrlBase);
             }
             catch (Exception)
@@ -57,9 +62,15 @@ namespace DynaServer.Server
             if (!this.IsRunning) return;
 
             Console.WriteLine("Stopping web service on " + UrlBase);
-
-            server.Stop();
-            IsRunning = false;
+            try
+            {
+                server.Stop();
+                IsRunning = false;
+            }
+            catch (Exception)
+            {
+                // silent ignore for now.
+            }
         }
 
         public void Dispose()
