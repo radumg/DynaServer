@@ -14,6 +14,7 @@ namespace DynaServer.Server
 
             Get["/stop"] = x =>
             {
+                DynamoWebServer.CurrentInstance.Stop();
                 return Response.AsFile("extra/stop.html", "text/html");
             };
 
