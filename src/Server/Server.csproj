@@ -56,11 +56,11 @@
     <Compile Include="Server\DynamoWebServer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\cheatsheet.css">
+    <Content Include="Views\assets\cheatsheet.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\favicon.png" />
-    <Content Include="Views\fav_icon.png" />
+    <Content Include="Views\assets\favicon.png" />
+    <Content Include="Views\assets\fav_icon.png" />
     <Content Include="Views\start.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
