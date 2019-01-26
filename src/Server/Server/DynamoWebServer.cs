@@ -7,7 +7,8 @@ namespace DynaServer.Server
 {
     public class DynamoWebServer : IDisposable
     {
-        private const string DEFAULT_URL_BASE = "http://localhost:1234";
+        private const int DEFAULT_SERVER_PORT = 1234; 
+        private readonly string DEFAULT_URL_BASE = "http://localhost:"+DEFAULT_SERVER_PORT;
 
         private NancyHost server;
         private HostConfiguration serverConfig;
@@ -25,7 +26,8 @@ namespace DynaServer.Server
             UrlBase = DEFAULT_URL_BASE;
 
             serverConfig = new HostConfiguration();
-            serverConfig.UrlReservations.CreateAutomatically = true;
+            serverConfig.UrlReservations = new UrlReservations { CreateAutomatically = true };
+            serverConfig.RewriteLocalhost = true;
             var bootstrapper = new Bootstrapper();
 
             server = new NancyHost(bootstrapper, serverConfig, new Uri(UrlBase));
