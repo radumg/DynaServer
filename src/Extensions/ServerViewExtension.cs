@@ -63,11 +63,6 @@ namespace DynaServer.Extensions
 
         public static async Task StopServerAsync()
         {
-            // first open the shutting down server page.
-            // yes, i prioritise UX over speed here, deal with it.
-            await Task.Run(() => Process.Start(Server.UrlBase + "/stop"));
-            Thread.Sleep(3000);
-
             var message = $"[ {DateTime.Now} ] : Stopping server on machine {Environment.MachineName}";
 
             // stop server and continue execution
