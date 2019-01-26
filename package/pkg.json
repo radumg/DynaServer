@@ -3,9 +3,24 @@
   "file_hash": null,
   "name": "DynaServer",
   "version": "1.0.0",
-  "description": "A Dynamo Extension that allows bi-directional communication and control of Dynamo as a REST API.",
-  "group": "",
-  "keywords": [],
+  "description": "A Dynamo Extension that allows communication and remote control of Dynamo as a REST API.
+  Using a browser, you can interogate Dynamo running on your machine on what it's doing, or remotely control Dynamo and tell it to do stuff.
+  It can do a bunch of stuff out of the box, like open graphs, execute them, add nodes to canvas, report what packages are installed, etc.
+  The extension also works on remote machines, but Windows Firewall exceptions have to be manually added at the moment. 
+  The extension installs a new DynaServer menu item, which allows you to start & stop the server.
+  Once started, you can access the server at http://localhost:1234.
+  The server start page contains a list of all current endpoints with interactive testing buttons too.",
+  "group": "radugidei",
+  "keywords": [
+    "server",
+    "integration",
+    "rest api",
+    "rest",
+    "api",
+    "request",
+    "remote",
+    "control"
+  ],
   "dependencies": [],
   "contents": "",
   "engine_version": "2.0.1.5065",
