@@ -211,12 +211,17 @@
     <Copy SourceFiles="@(SourceViewExtension)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false" />
     <Copy SourceFiles="@(SourceHtml)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false" />
     <PropertyGroup>
-      <!--Copy to Dynamo sandbox for testing -->
-      <DeployFolder>$(AppData)\Dynamo\Dynamo Core\2.0\packages\$(SolutionName)</DeployFolder>
+      <!--Copy to Dynamo Sandbox for testing -->
+      <DeployFolderCore>$(AppData)\Dynamo\Dynamo Core\2.0\packages\$(SolutionName)</DeployFolderCore>
+      <!--Copy to Dynamo Revit for testing -->
+      <DeployFolderRevit>$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(SolutionName)</DeployFolderRevit>
     </PropertyGroup>
+    <Message Importance="High" Text="DeployFolderCore = $(DeployFolderCore)" />
+    <Message Importance="High" Text="DeployFolderRevit = $(DeployFolderRevit)" />
     <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++" />
-    <Message Importance="High" Text="Deployed to $(DeployFolder)" />
-    <MakeDir Directories="$(DeployFolder)" />
-    <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(DeployFolder)\%(RecursiveDir)" SkipUnchangedFiles="false" />
+    <MakeDir Directories="$(DeployFolderCore)" />
+    <MakeDir Directories="$(DeployFolderRevit)" />
+    <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(DeployFolderCore)\%(RecursiveDir)" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(DeployFolderRevit)\%(RecursiveDir)" SkipUnchangedFiles="false" />
   </Target>
 </Project>

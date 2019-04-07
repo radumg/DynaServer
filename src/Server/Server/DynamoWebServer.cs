@@ -1,14 +1,16 @@
-﻿using Nancy.Hosting.Self;
-using System;
+﻿using System;
 using System.Diagnostics;
-using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using Nancy.Hosting.Self;
+
 
 namespace DynaServer.Server
 {
     public class DynamoWebServer : IDisposable
     {
-        private const int DEFAULT_SERVER_PORT = 1234; 
-        private readonly string DEFAULT_URL_BASE = "http://localhost:"+DEFAULT_SERVER_PORT;
+        private const int DEFAULT_SERVER_PORT = 1234;
+        private readonly string DEFAULT_URL_BASE = "http://localhost:" + DEFAULT_SERVER_PORT;
 
         private NancyHost server;
         private HostConfiguration serverConfig;
@@ -19,7 +21,7 @@ namespace DynaServer.Server
         public string UrlBase { get; private set; }
         public bool IsRunning { get; private set; }
         public bool FailedToStart { get; private set; }
-
+        public Exception LastException { get; private set; }
 
         public DynamoWebServer()
         {
@@ -30,7 +32,21 @@ namespace DynaServer.Server
             serverConfig.RewriteLocalhost = true;
             var bootstrapper = new Bootstrapper();
 
-            server = new NancyHost(bootstrapper, serverConfig, new Uri(UrlBase));
+            //var th = new Thread(() =>
+            //{
+            //    //Thread.CurrentThread.IsBackground = true;
+
+            //    Console.WriteLine("Initialising NancyHost on thread" + Thread.CurrentThread.Name + " [id : " + Thread.CurrentThread.ManagedThreadId);
+
+            //    // start Nancy server
+            //    server = new NancyHost(bootstrapper, serverConfig, new Uri(UrlBase));
+            //});
+
+            //Task.Run(() =>
+            //{
+                server = new NancyHost(bootstrapper, serverConfig, new Uri(UrlBase));
+            //}).ConfigureAwait(false);
+
 
             // set initial state
             IsRunning = false;
@@ -55,8 +71,9 @@ namespace DynaServer.Server
                 // open the server base url in browser
                 Process.Start(UrlBase);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LastException = ex;
                 IsRunning = false;
                 FailedToStart = false;
             }
@@ -64,7 +81,7 @@ namespace DynaServer.Server
 
         public void Stop()
         {
-            if (!this.IsRunning) return;
+            if (!IsRunning) return;
 
             Console.WriteLine("Stopping web service on " + UrlBase);
             try

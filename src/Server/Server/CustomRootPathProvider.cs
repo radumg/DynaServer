@@ -8,9 +8,10 @@ namespace DynaServer.Server
     {
         public string GetRootPath()
         {
-            return 
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + 
-                @"\Dynamo\Dynamo Core\2.0\packages\DynaServer";
+            var folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var dynPath = @"\Dynamo\Dynamo Revit\2.0\packages\DynaServer";
+            var path = folder + dynPath;
+            return path;
         }
     }
 }

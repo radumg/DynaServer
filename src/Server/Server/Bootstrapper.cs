@@ -13,13 +13,12 @@ namespace DynaServer.Server
         private const string _password = "dynamo";
         internal IRootPathProvider rootPathProvider;
 
-        protected override IRootPathProvider RootPathProvider
+        public Bootstrapper()
         {
-            get {
-                rootPathProvider = new CustomRootPathProvider();
-                return rootPathProvider;
-            }
+            rootPathProvider = new CustomRootPathProvider();
         }
+
+        protected override IRootPathProvider RootPathProvider => rootPathProvider;
 
         protected override DiagnosticsConfiguration DiagnosticsConfiguration
         {

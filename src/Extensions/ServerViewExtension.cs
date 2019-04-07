@@ -1,12 +1,13 @@
-﻿using Dynamo.Logging;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Threading;
+using Dynamo.Logging;
 using Dynamo.ViewModels;
 using Dynamo.Wpf.Extensions;
 using DynaServer.Server;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows.Threading;
 
 namespace DynaServer.Extensions
 {
@@ -23,9 +24,25 @@ namespace DynaServer.Extensions
         internal static DynamoWebServer Server = null;
         private static Dispatcher dispatcher;
 
+        private Thread serverThread;
+
         public ServerViewExtension()
         {
-            if (Server == null) Server = new DynamoWebServer();
+            InitServer();
+        }
+
+        public async Task InitServer()
+        {
+            await Task.Run(() =>
+            {
+                if (Server == null) Server = new DynamoWebServer();
+            })
+            MessageBox.Show("finished initialising");
+        }
+
+        private void BackgroundTask(object state)
+        {
+            
         }
 
         public void Startup(ViewStartupParams vsp) { }
@@ -51,11 +68,19 @@ namespace DynaServer.Extensions
             var message = $"[ {DateTime.Now} ] : Starting server on machine {Environment.MachineName}";
 
             // start server and continue execution
-            await Task.Run(() => Server.Start());
+            //await Task.Run(() => Server.Start());
+
+            // start Nancy in a different thread as it would otherwise block Revit's idle thread
+            var th = new Thread(() =>
+            {
+                Server.Start();
+            });
+            th.Start();
+            th.Join();
             watch.Stop();
 
             // log results
-            var confirmation = Server.IsRunning == true ? "Started ok" : "Something went wrong, server did not start ok.";
+            var confirmation = Server.IsRunning == true ? "Started ok" : "Something went wrong, server did not start ok : " + Environment.NewLine + Server.LastException.Message + Environment.NewLine + Server.LastException.StackTrace + Environment.NewLine;
             confirmation = $"[ {DateTime.Now} ] : " + confirmation + ", in " + watch.ElapsedMilliseconds + "ms";
             ServerViewExtension.DynamoLogger.LogNotification("ServerViewExtension", "Dynamo Server START", message, confirmation);
         }
@@ -85,7 +110,7 @@ namespace DynaServer.Extensions
 
         public async void Shutdown()
         {
-            await ServerViewExtension.StopServerAsync();
+            if(Server!=null) await ServerViewExtension.StopServerAsync();
             Events.UnregisterEventHandlers();
         }
 
