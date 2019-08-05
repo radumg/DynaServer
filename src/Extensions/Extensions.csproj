@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DynaServer.Extensions</RootNamespace>
     <AssemblyName>DynaServerExtensions</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <StartAction>Program</StartAction>
@@ -34,6 +34,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugRevit|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugRevit\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CoreNodeModels, Version=2.0.1.5055, Culture=neutral, processorArchitecture=MSIL">
@@ -212,7 +221,11 @@
     <Copy SourceFiles="@(SourceHtml)" DestinationFolder="$(PackageFolder)\extra" SkipUnchangedFiles="false" />
     <PropertyGroup>
       <!--Copy to Dynamo sandbox for testing -->
-      <DeployFolder>$(AppData)\Dynamo\Dynamo Core\2.0\packages\$(SolutionName)</DeployFolder>
+      <DeployFolder Condition="'$(Configuration)' == 'Debug'">$(AppData)\Dynamo\Dynamo Core\2.0\packages\$(SolutionName)</DeployFolder>
+      <!--Copy to Dynamo Revit for testing -->
+      <DeployFolder Condition="'$(Configuration)' == 'DebugRevit'">$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(SolutionName)</DeployFolder>
+      <!--Copy to release folder for publishing -->
+      <DeployFolder Condition="'$(Configuration)' == 'Release'">$(SolutionDir)\..\release packages\$(SolutionName)</DeployFolder>
     </PropertyGroup>
     <Message Importance="High" Text="++++++++++++++++++++++++++++++++++++++" />
     <Message Importance="High" Text="Deployed to $(DeployFolder)" />

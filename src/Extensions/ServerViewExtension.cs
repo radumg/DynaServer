@@ -25,6 +25,7 @@ namespace DynaServer.Extensions
 
         public ServerViewExtension()
         {
+            //Debugger.Launch();
             if (Server == null) Server = new DynamoWebServer();
         }
 
